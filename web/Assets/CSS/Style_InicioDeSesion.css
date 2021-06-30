@@ -1,0 +1,35 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 30-jun-2021, 15:16:01
+    Author     : Sofia Paola
+*/
+
+*{
+    margin:0px;
+    padding:0px;
+    font-family: helvetica neue;
+    font-weight: lighter;
+}
+body {
+    
+    background-image: url(../Img/Sena.png);   
+    background-size: 100vw 100vh;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+}
+.wrapper{
+    width: 350px;
+    height: 350px;
+    top: 50%;
+    left: 50%;
+    padding: 60px 30px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    box-shadow: 8px 8px 50px #ffffff;
+}
