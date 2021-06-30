@@ -11,6 +11,7 @@
         <meta charset="UTF-8">
         <title>TeE Evaluo</title>
         <link rel="stylesheet" type="text/css" href="">
+        <link href="Assets/CSS/Style_InicioDeSecion" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <div class="wrapper">
