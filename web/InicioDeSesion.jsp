@@ -9,8 +9,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>TeE Evaluo</title>
-        <link rel="stylesheet" type="text/css" href="">
+        <title>Te Evaluo</title>
         <link href="Assets/CSS/Style_InicioDeSecion" rel="stylesheet" type="text/css"/>
     </head>
     <body>
