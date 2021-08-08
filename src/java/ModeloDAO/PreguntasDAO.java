@@ -62,39 +62,43 @@ public class PreguntasDAO extends Conexion implements Crud{
                 this.cerrarConexion();
                 
             } catch (SQLException e) {
-                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);
             }
         }*/
         return operacion;
     }
 
     @Override
-    public boolean actualizarRegistro() {
+    public boolean actualizarRegistro(String valor, String id) {
         try {
             sql="update pregunta set pregunta=? where idPregunta=? ";
             puente= conexion.prepareStatement(sql);
-            puente.setString(1, pregunta);
-            
+            puente.setString(1, valor);
+            puente.setString(2, id);
             puente.executeUpdate();
             this.operacion= true;
             
             this.cerrarConexion();
         } catch (SQLException e) {
             Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);
-        }/*finally{    
-            try {
-                this.cerrarConexion();
-                
-            } catch (SQLException e) {
-                Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
-            }
-        }*/
+        }
         return operacion;
     }
 
     @Override
-    public boolean eliminarRegistro() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean eliminarRegistro(String id) {
+        try {
+        String sql="DELETE FROM pregunta WHERE idPregunta=?";
+         puente= conexion.prepareStatement(sql);
+         puente.setString(1, id);
+         puente.executeUpdate();
+         this.operacion= true;
+     
+        
+        }catch (SQLException e) {
+            Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return operacion;
     }
     
     
@@ -126,5 +130,33 @@ public class PreguntasDAO extends Conexion implements Crud{
             }
         }
         return ListaPreguntas;
+    }
+  
+  
+  public PreguntasVO consultarPregunta(String id){
+    
+    PreguntasVO preVO= null;
+        try {
+            conexion = this.obtenerConexion();
+            sql="select * from pregunta where idPregunta= ?";
+            puente= conexion.prepareStatement(sql);
+            puente.setString(1, id);
+            mensajero= puente.executeQuery();
+            
+            while(mensajero.next()){
+            
+                preVO = new PreguntasVO(mensajero.getString(1), mensajero.getString(2), mensajero.getString(3), mensajero.getString(4));
+            }
+        } catch (Exception e) {
+            Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);
+        }finally{    
+            try {
+                this.cerrarConexion();
+                
+            } catch (SQLException e) {
+                Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return preVO;
     }
 }

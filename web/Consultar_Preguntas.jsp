@@ -13,15 +13,18 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link href="Assets/CSS/bootstrap.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-    <center>
-        <h1>Hello</h1>
-     <form>
-                <table border="2">
+        <div class="container">
+        <h1>Preguntas</h1>
+     
+                <table class="table table-bordered">
                     <tr>
-                        <th>Pregunta</th>
-                        
+                        <th class="text-center">ID</th>
+                        <th class="text-center" >Pregunta</th>
+                        <th></th>    
+                        <th></th>   
                     </tr>
                     <% 
                     PreguntasVO preVO = new PreguntasVO();
@@ -34,15 +37,31 @@
                     %>
                     
                     <tr>
-                        
-                        <td><%=preVO.getPregunta() %></td>
-                        
-                        
+                        <td class="text-center" ><%=preVO.getIdPregunta() %></td>
+                        <td class="text-center" ><%=preVO.getPregunta() %></td>
+                        <td class="text-center" >
+                            <form method="POST" action="Preguntas">
+                            <button class="btn btn-warning">Actualizar</button>
+                            <input type="hidden" value="4" name="opcion">
+                            <input type="hidden" value="<%=preVO.getIdPregunta()%>" name="textId">
+                            </form>
+                            
+                        </td>
+                        <td class="text-center" >
+                            <form method="POST" action="Preguntas">
+                            <button class="btn btn-warning">Borrar</button>
+                            <input type="hidden" value="2" name="opcion">
+                            <input type="hidden" value="<%=preVO.getIdPregunta()%>" name="textId">
+                            </form>
+                            
+                        </td>
                     </tr>
                     <%}%>
                 </table>
-            </form>
-    </center>
-        
+         
+                <a class="btn btn-success" href="MenuAdministrador.jsp">Volver</a>
+                <a class="btn btn-success" href="Crear_Preguntas.jsp">Registrar</a>
+        </div>
+               
     </body>
 </html>

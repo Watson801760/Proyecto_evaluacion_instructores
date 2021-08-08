@@ -27,7 +27,7 @@
                         <p class="menu">Aprendices</p>
                     </li>
                 </a>
-                <a href="">
+                <a href="Consultar_Preguntas.jsp">
                     <li>
                         <div class="barra"></div>
                         <p class="menu">Crear Preguntas</p>
