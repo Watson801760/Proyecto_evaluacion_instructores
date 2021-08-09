@@ -31,42 +31,42 @@ body {
     transform: translate(50%, -50%);
     box-sizing: border-box;
     box-shadow: 8px 8px 50px;
-	background-color: white;
-	color: #2EEC22;
+    background-color: white;
+    color: #2EEC22;
 }
 img{
-	width: 40px;
-	height: 40px;
+    width: 40px;
+    height: 40px;
 }
 h1{
-	margin: 0;
-	padding: 0;
-	font-weight: bold;
-	font-size: 22px;
-	color: black;
-	text-align: center;
-	margin-bottom: 8%;
-	font-family: Courgette;
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+    font-size: 22px;
+    color: black;
+    text-align: center;
+    margin-bottom: 8%;
+    font-family: Courgette;
 }
 .wrapper1 input{
-	width: 100%;
-	margin-bottom: 20px;
+    width: 100%;
+    margin-bottom: 20px;
 }
 .wrapper1 input[type=text], .wrapper1 input[type=password]{
-	border: none;
-	border-bottom: 1px solid black;
-	outline: none;
-	height: 60px;
-	font-size: 16px;
-	opacity: 1;
+    border: none;
+    border-bottom: 1px solid black;
+    outline: none;
+    height: 60px;
+    font-size: 16px;
+    opacity: 1;
 }
 .wrapper1 input[type=submit], .wrapper input[type=submit]{
-	cursor: pointer;
-	border: none;
-	outline: none;
-	height: 40px;
-	background: green;
-	color: white;
-	font-size: 14px;
-	font-weight: bold;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    height: 40px;
+    background: green;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
 }
