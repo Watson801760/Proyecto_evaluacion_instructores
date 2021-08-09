@@ -15,23 +15,28 @@ and open the template in the editor.
     font-weight: lighter;
 }
 body {
-    background-image: url(../Img/Sena.png);   
-    background-size: 100vw 100vh;
+    background-color: #2EEC22;  
+    background-size: 50vw 50vh;
     background-attachment: fixed;
     margin: 0;
     padding: 0;
 }
-.wrapper{
-    width: 350px;
-    height: 350px;
+.wrapper1{
+    width: 450px;
+    height: 600px;
     top: 50%;
     left: 50%;
     padding: 60px 30px;
     position: absolute;
-    transform: translate(-50%, -50%);
+    transform: translate(50%, -50%);
     box-sizing: border-box;
-    box-shadow: 8px 8px 50px #ffffff;
-    background: white;
+    box-shadow: 8px 8px 50px;
+	background-color: white;
+	color: #2EEC22;
+}
+img{
+	width: 40px;
+	height: 40px;
 }
 h1{
 	margin: 0;
@@ -43,27 +48,25 @@ h1{
 	margin-bottom: 8%;
 	font-family: Courgette;
 }
-.wrapper input{
+.wrapper1 input{
 	width: 100%;
 	margin-bottom: 20px;
 }
-.wrapper input[type=text], .wrapper input[type=password]{
+.wrapper1 input[type=text], .wrapper1 input[type=password]{
 	border: none;
-	border-bottom: 1px solid #fff;
-	background: transparent;
+	border-bottom: 1px solid black;
 	outline: none;
-	height: 30px;
+	height: 60px;
 	font-size: 16px;
 	opacity: 1;
-	color: #fff;
 }
-.wrapper input[type=submit], .wrapper input[type=submit]{
+.wrapper1 input[type=submit], .wrapper input[type=submit]{
 	cursor: pointer;
 	border: none;
 	outline: none;
 	height: 40px;
-	background: #2072dd;
-	color: #fff;
+	background: green;
+	color: white;
 	font-size: 14px;
 	font-weight: bold;
 }
