@@ -4,6 +4,8 @@
     Author     : user
 --%>
 
+<%@page import="ModeloDAO.ClasificacionDAO"%>
+<%@page import="ModeloVO.ClasificacionVO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="ModeloDAO.PreguntasDAO"%>
 <%@page import="ModeloVO.PreguntasVO"%>
@@ -23,22 +25,34 @@
                     <tr>
                         <th class="text-center">ID</th>
                         <th class="text-center" >Pregunta</th>
+                        <th class="text-center" >Clasificacion</th>
                         <th></th>    
                         <th></th>   
                     </tr>
                     <% 
                     PreguntasVO preVO = new PreguntasVO();
                     PreguntasDAO preDAO= new PreguntasDAO(preVO);
+                    ClasificacionVO claVO = new ClasificacionVO();
+                    ClasificacionDAO claDAO= new ClasificacionDAO();
                     ArrayList<PreguntasVO>ListaPreguntas=preDAO.listar();
+                    ArrayList<ClasificacionVO>ListaClasificacion=claDAO.listar();
                     for (int i = 0; i < ListaPreguntas.size(); i++) {
                         
                             preVO= ListaPreguntas.get(i);
+                            
+                        for (int j = 0; j< ListaClasificacion.size(); j++) {
+                                claVO= ListaClasificacion.get(j);
+                            
+    
+                            
             
                     %>
                     
                     <tr>
                         <td class="text-center" ><%=preVO.getIdPregunta() %></td>
                         <td class="text-center" ><%=preVO.getPregunta() %></td>
+                        
+                        <td class="text-center" ><%=claVO.getNombreClasificacion() %></td>
                         <td class="text-center" >
                             <form method="POST" action="Preguntas">
                             <button class="btn btn-warning">Actualizar</button>
@@ -56,6 +70,7 @@
                             
                         </td>
                     </tr>
+                    <%}%>
                     <%}%>
                 </table>
          

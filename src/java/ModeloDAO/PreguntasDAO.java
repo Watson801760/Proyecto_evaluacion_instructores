@@ -29,8 +29,7 @@ public class PreguntasDAO extends Conexion implements Crud{
     
     private boolean operacion= false;
     private String sql;
-    private String idPregunta="",pregunta="",respuestaFavorable="",estado="";
-    
+    private String idPregunta="",pregunta="",respuestaFavorable="",estado="",idClasificacion="",idEvaluacion="";
     public PreguntasDAO(PreguntasVO preVO){
     super();
         try {
@@ -39,6 +38,7 @@ public class PreguntasDAO extends Conexion implements Crud{
             pregunta = preVO.getPregunta();
             respuestaFavorable = preVO.getRespuestaFavorable();
             estado = preVO.getEstado();
+            idClasificacion=preVO.getIdClasificacionFK();
         } catch (Exception e) {
             Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);
         }
@@ -48,9 +48,15 @@ public class PreguntasDAO extends Conexion implements Crud{
     @Override
     public boolean agregarRegistro() {
          try {
-            sql="insert into pregunta (pregunta) values(?) ";
+             System.out.println("se prepa la conexion");
+            sql="insert into pregunta (`pregunta`,`idClasificacion(FK)`) values(?,?) ";
+             System.out.println("se entra el registro");
             puente= conexion.prepareStatement(sql);
+            System.out.println("1:"+ pregunta);
             puente.setString(1, pregunta);
+            System.out.println("2:"+ idClasificacion);
+            puente.setString(2, idClasificacion);
+             System.out.println("se elige el segundo valor");
             puente.executeUpdate();
             this.operacion=true;
             
@@ -113,7 +119,8 @@ public class PreguntasDAO extends Conexion implements Crud{
             
             while(mensajero.next()){
             
-                PreguntasVO preVO = new PreguntasVO(mensajero.getString(1), mensajero.getString(2), mensajero.getString(3), mensajero.getString(4));
+                PreguntasVO preVO = new PreguntasVO(mensajero.getString(1), mensajero.getString(2), mensajero.getString(3),
+                                                   mensajero.getString(4),mensajero.getString(5),mensajero.getString(6));
                 ListaPreguntas.add(preVO);
                         
             
@@ -145,7 +152,8 @@ public class PreguntasDAO extends Conexion implements Crud{
             
             while(mensajero.next()){
             
-                preVO = new PreguntasVO(mensajero.getString(1), mensajero.getString(2), mensajero.getString(3), mensajero.getString(4));
+                preVO = new PreguntasVO(mensajero.getString(1), mensajero.getString(2), mensajero.getString(3),
+                                        mensajero.getString(4),mensajero.getString(5),mensajero.getString(6));
             }
         } catch (Exception e) {
             Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);

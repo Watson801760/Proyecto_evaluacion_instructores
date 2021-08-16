@@ -39,16 +39,20 @@ public class PreguntasControlador extends HttpServlet {
         String pregunta = request.getParameter("textPreguntas");
         String respuestaFavorable = request.getParameter("textRespuestaFav");
         String estado = request.getParameter("textEstado");
+        String idClasificacionFK =request.getParameter("textClasificacion");
+        String idEvaluacionFK =request.getParameter("textEvaluacion");
         String valor = request.getParameter("sql");
         String id = request.getParameter("id");
         
-        PreguntasVO preVO = new PreguntasVO(idPregunta, pregunta, respuestaFavorable, estado);
+        PreguntasVO preVO = new PreguntasVO(idPregunta,pregunta,respuestaFavorable,estado,idClasificacionFK,idEvaluacionFK);
         PreguntasDAO preDAO = new PreguntasDAO(preVO);
         
         switch(opcion){
         
             
             case 1:
+                System.out.println("1."+idClasificacionFK);
+                System.out.println("2."+pregunta);
                 
                 if (preDAO.agregarRegistro()) {
                     request.setAttribute("mensajeExito", "La pregunta se registro exitosamente");

@@ -10,18 +10,18 @@ package ModeloVO;
  * @author user
  */
 public class PreguntasVO {
-    private String idPregunta,pregunta,respuestaFavorable,estado;
-
+    private String idPregunta,pregunta,respuestaFavorable,estado,idClasificacionFK,idEvaluacionFK;
     public PreguntasVO() {
     }
-
-    public PreguntasVO(String idPregunta, String pregunta, String respuestaFavorable, String estado) {
+    public PreguntasVO(String idPregunta, String pregunta, String respuestaFavorable, String estado, String idClasificacionFK, String idEvaluacionFK) {
         this.idPregunta = idPregunta;
         this.pregunta = pregunta;
         this.respuestaFavorable = respuestaFavorable;
         this.estado = estado;
+        this.idClasificacionFK = idClasificacionFK;
+        this.idEvaluacionFK = idEvaluacionFK;
     }
-    
+
     public String getIdPregunta() {
         return idPregunta;
     }
@@ -54,5 +54,23 @@ public class PreguntasVO {
         this.estado = estado;
     }
 
+    public String getIdClasificacionFK() {
+        return idClasificacionFK;
+    }
+
+    public void setIdClasificacionFK(String idClasificacionFK) {
+        this.idClasificacionFK = idClasificacionFK;
+    }
+
+    public String getIdEvaluacionFK() {
+        return idEvaluacionFK;
+    }
+
+    public void setIdEvaluacionFK(String idEvaluacionFK) {
+        this.idEvaluacionFK = idEvaluacionFK;
+    }
+
     
-}
+    }
+
+    

@@ -28,14 +28,16 @@
       <form method="POST" action="Preguntas">
           Pregunta<br>
           <input class="form-control" type="text" name="sql" value="<%= preVO.getPregunta()%>"><br>
-          <br>
-          <input class="form-control" type="hidden" name="id" value="<%= preVO.getIdPregunta() %>"><br>
+          <input class="form-control" type="hidden" name="id" value="<%= preVO.getIdPregunta() %>">
           <button class="btn btn-warning" >Actualizar</button>
           <input type="hidden" value="3" name="opcion">
+          
       </form>
           
+          
+          
       <% }%>       
-      <a href="Consultar_Preguntas.jsp">Volver</a>
+      
       <%if (request.getAttribute("mensajeError") == null) {%>
       <div style="color:aqua;">${mensajeExito}</div>
       <% } else if (request.getAttribute("mensajeExito") == null) {%>
@@ -43,5 +45,9 @@
       <%}%>
 
      </div>
+    <div class="container" >
+        <a class="btn btn-success" href="Consultar_Preguntas.jsp">Volver</a>
+    </div>
+      
     </body>
 </html>

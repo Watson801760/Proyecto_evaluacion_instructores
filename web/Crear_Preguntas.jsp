@@ -4,6 +4,8 @@
     Author     : user
 --%>
 
+<%@page import="ModeloVO.ClasificacionVO"%>
+<%@page import="ModeloDAO.ClasificacionDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -17,10 +19,21 @@
         <h1>Registrar Preguntas</h1>
         <form method="POST" action="Preguntas">
             Pregunta<br>
-            <input type="text" name="textPreguntas"><br>
+            <input class="form-control" type="text" name="textPreguntas"><br>
+            <select class="form-select" name="textClasificacion">
+                            <option>Seleccione...</option>
+                            <%
+                                ClasificacionDAO claDAO = new ClasificacionDAO();
+                                for (ClasificacionVO claVO: claDAO.listar() ) {
+                            %>
+                            <option value="<%=claVO.getIdClasificacion()%>"> <%=claVO.getNombreClasificacion() %></option>
+                            <%
+                                }
+                            %>
+                        </select><br>
             <button class="btn btn-warning" >Registrar</button>
             <input class="form-control" type="hidden" value="1" name="opcion">
-            <a href="Consultar_Preguntas.jsp">Volver</a>
+            <a class="btn btn-success" href="Consultar_Preguntas.jsp">Volver</a>
 
         </form>
 
