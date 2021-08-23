@@ -4,6 +4,8 @@
     Author     : user
 --%>
 
+<%@page import="ModeloVO.ClasificacionVO"%>
+<%@page import="ModeloDAO.ClasificacionDAO"%>
 <%@page import="ModeloVO.PreguntasVO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -28,7 +30,18 @@
       <form method="POST" action="Preguntas">
           Pregunta<br>
           <input class="form-control" type="text" name="sql" value="<%= preVO.getPregunta()%>"><br>
-          <input class="form-control" type="hidden" name="id" value="<%= preVO.getIdPregunta() %>">
+          <input class="form-control" type="hidden" name="id" value="<%= preVO.getIdPregunta() %>"><br>
+          <select class="form-select" type="text" name="textClasificacion" >
+               <option  value="<%= preVO.getIdClasificacionFK()%>"></option>
+                            <%
+                                ClasificacionDAO claDAO = new ClasificacionDAO();
+                                for (ClasificacionVO claVO: claDAO.listar() ) {
+                            %>
+                            <option value="<%=claVO.getIdClasificacion()%>"> <%=claVO.getNombreClasificacion() %></option>
+                            <%
+                                }
+                            %>
+          </select>    
           <button class="btn btn-warning" >Actualizar</button>
           <input type="hidden" value="3" name="opcion">
           

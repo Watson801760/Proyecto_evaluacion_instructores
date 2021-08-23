@@ -51,14 +51,12 @@ public class PreguntasControlador extends HttpServlet {
         
             
             case 1:
-                System.out.println("1."+idClasificacionFK);
-                System.out.println("2."+pregunta);
-                
-                if (preDAO.agregarRegistro()) {
-                    request.setAttribute("mensajeExito", "La pregunta se registro exitosamente");
-                } else {
+                if ( preDAO.Pregunta(pregunta) != null) {
+                    request.setAttribute("mensajeError", "La pregunta ya existe");
+                } else if(preDAO.agregarRegistro()) {
+                    request.setAttribute("mensajeExito", "La pregunta se pudo registrar correctamente");
+                }else{
                     request.setAttribute("mensajeError", "La pregunta no se pudo registrar correctamente");
-
                 }
                 request.getRequestDispatcher("Crear_Preguntas.jsp").forward(request, response);
                 break;
@@ -70,7 +68,7 @@ public class PreguntasControlador extends HttpServlet {
                   
                     
                 } else {
-                    request.setAttribute("mensajeError", "La pregunta no se pudo registrar correctamente");
+                    request.setAttribute("mensajeError", "La pregunta no se pudo eliminar");
 
                 }
                 request.getRequestDispatcher("Consultar_Preguntas.jsp").forward(request, response);
@@ -98,10 +96,7 @@ public class PreguntasControlador extends HttpServlet {
                     request.getRequestDispatcher("Consultar_Preguntas.jsp").forward(request, response);
                 }
                 break;    
-        }
-        
-        
-            
+        }   
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

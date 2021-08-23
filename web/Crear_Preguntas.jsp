@@ -18,7 +18,7 @@
         <div class="container" >
         <h1>Registrar Preguntas</h1>
         <form method="POST" action="Preguntas">
-            Pregunta<br>
+            Preguntas
             <input class="form-control" type="text" name="textPreguntas"><br>
             <select class="form-select" name="textClasificacion">
                             <option>Seleccione...</option>
@@ -30,7 +30,7 @@
                             <%
                                 }
                             %>
-                        </select><br>
+            </select><br>
             <button class="btn btn-warning" >Registrar</button>
             <input class="form-control" type="hidden" value="1" name="opcion">
             <a class="btn btn-success" href="Consultar_Preguntas.jsp">Volver</a>

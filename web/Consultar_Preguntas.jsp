@@ -35,13 +35,11 @@
                     ClasificacionVO claVO = new ClasificacionVO();
                     ClasificacionDAO claDAO= new ClasificacionDAO();
                     ArrayList<PreguntasVO>ListaPreguntas=preDAO.listar();
-                    ArrayList<ClasificacionVO>ListaClasificacion=claDAO.listar();
+                    ArrayList<String> listaCla = new ArrayList<String>();
                     for (int i = 0; i < ListaPreguntas.size(); i++) {
                         
                             preVO= ListaPreguntas.get(i);
-                            
-                        for (int j = 0; j< ListaClasificacion.size(); j++) {
-                                claVO= ListaClasificacion.get(j);
+                            //listaCla.add(claDAO.consultarClasificacion(preVO.getIdClasificacionFK()).getNombreClasificacion());
                             
     
                             
@@ -52,7 +50,7 @@
                         <td class="text-center" ><%=preVO.getIdPregunta() %></td>
                         <td class="text-center" ><%=preVO.getPregunta() %></td>
                         
-                        <td class="text-center" ><%=claVO.getNombreClasificacion() %></td>
+                        <td class="text-center" ><%=preVO.getIdClasificacionFK() %></td>
                         <td class="text-center" >
                             <form method="POST" action="Preguntas">
                             <button class="btn btn-warning">Actualizar</button>
@@ -70,7 +68,6 @@
                             
                         </td>
                     </tr>
-                    <%}%>
                     <%}%>
                 </table>
          

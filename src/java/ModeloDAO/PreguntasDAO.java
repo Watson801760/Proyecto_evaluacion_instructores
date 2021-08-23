@@ -53,14 +53,14 @@ public class PreguntasDAO extends Conexion implements Crud{
              System.out.println("se entra el registro");
             puente= conexion.prepareStatement(sql);
             System.out.println("1:"+ pregunta);
-            puente.setString(1, pregunta);
+            puente.setString(1,pregunta);
             System.out.println("2:"+ idClasificacion);
-            puente.setString(2, idClasificacion);
-             System.out.println("se elige el segundo valor");
+            puente.setString(2,idClasificacion);
+          
             puente.executeUpdate();
             this.operacion=true;
             
-            this.cerrarConexion();
+         
         } catch (SQLException e) {
             Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);
         }/*finally{    
@@ -77,14 +77,16 @@ public class PreguntasDAO extends Conexion implements Crud{
     @Override
     public boolean actualizarRegistro(String valor, String id) {
         try {
-            sql="update pregunta set pregunta=? where idPregunta=? ";
+            sql="update pregunta set pregunta=?, `idClasificacion(FK)`=? where idPregunta=? ";
             puente= conexion.prepareStatement(sql);
             puente.setString(1, valor);
-            puente.setString(2, id);
+            puente.setString(2,idClasificacion );
+            puente.setString(3, id);
+            
             puente.executeUpdate();
             this.operacion= true;
             
-            this.cerrarConexion();
+            
         } catch (SQLException e) {
             Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);
         }
@@ -125,17 +127,17 @@ public class PreguntasDAO extends Conexion implements Crud{
                         
             
             }
-            
+          
         } catch (Exception e) {
             Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);
-        }finally{    
+        }/*finally{    
             try {
                 this.cerrarConexion();
                 
             } catch (SQLException e) {
                 Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);
             }
-        }
+        }*/
         return ListaPreguntas;
     }
   
@@ -155,16 +157,48 @@ public class PreguntasDAO extends Conexion implements Crud{
                 preVO = new PreguntasVO(mensajero.getString(1), mensajero.getString(2), mensajero.getString(3),
                                         mensajero.getString(4),mensajero.getString(5),mensajero.getString(6));
             }
+            
         } catch (Exception e) {
             Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);
-        }finally{    
+        }/*finally{    
             try {
                 this.cerrarConexion();
                 
             } catch (SQLException e) {
                 Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);
             }
-        }
+        }*/
+        return preVO;
+    }
+  
+  
+  public PreguntasVO Pregunta(String preguntaV){
+    
+    PreguntasVO preVO= null;
+        try {
+            conexion = this.obtenerConexion();
+            sql="select * from pregunta where pregunta=? ";
+            puente= conexion.prepareStatement(sql);
+            puente.setString(1, preguntaV);
+            mensajero= puente.executeQuery();
+            
+            while(mensajero.next()){
+            
+                preVO = new PreguntasVO(mensajero.getString(1), mensajero.getString(2), mensajero.getString(3),
+                                        mensajero.getString(4),mensajero.getString(5),mensajero.getString(6));
+            }
+            
+            
+        } catch (Exception e) {
+            Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);
+        }/*finally{    
+            try {
+                this.cerrarConexion();
+                
+            } catch (SQLException e) {
+                Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }*/
         return preVO;
     }
 }
