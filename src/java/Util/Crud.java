@@ -11,6 +11,6 @@ package Util;
  */
 public interface Crud {
     public abstract boolean agregarRegistro();
-    public abstract boolean actualizarRegistro( String sql, String id);
+    public abstract boolean actualizarRegistro( String valor, String id);
     public abstract boolean eliminarRegistro(String id);
 }

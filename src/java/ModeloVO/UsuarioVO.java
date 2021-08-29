@@ -10,16 +10,16 @@ package ModeloVO;
  * @author Sofia Paola
  */
 public class UsuarioVO {
-    private String idUsuario, nombreUsuario, contraseña, estado;       
-    
-    public UsuarioVO(String idUsuario, String nombreUsuario, String contraseña, String estado) {
+    private String idUsuario, nombreUsuario, contraseña, estado,idRolFK;
+    public UsuarioVO() {
+    }
+
+    public UsuarioVO(String idUsuario, String nombreUsuario, String contraseña, String estado, String idRolFK) {
         this.idUsuario = idUsuario;
         this.nombreUsuario = nombreUsuario;
         this.contraseña = contraseña;
         this.estado = estado;
-    }
-
-    public UsuarioVO() {
+        this.idRolFK = idRolFK;
     }
 
     public String getIdUsuario() {
@@ -53,4 +53,15 @@ public class UsuarioVO {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    public String getIdRolFK() {
+        return idRolFK;
+    }
+
+    public void setIdRolFK(String idRolFK) {
+        this.idRolFK = idRolFK;
+    }
+           
+    
+    
 }

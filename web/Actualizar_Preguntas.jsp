@@ -57,8 +57,8 @@
       <div style="color:red;">${mensajeError}</div>
       <%}%>
 
-     </div>
-    <div class="container" >
+     
+    
         <a class="btn btn-success" href="Consultar_Preguntas.jsp">Volver</a>
     </div>
       
