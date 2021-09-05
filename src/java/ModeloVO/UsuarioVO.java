@@ -10,7 +10,7 @@ package ModeloVO;
  * @author Sofia Paola
  */
 public class UsuarioVO {
-    private String idUsuario, nombreUsuario, contraseña, estado,idRolFK;
+    private String idUsuario, nombreUsuario, contraseña, estado, idRolFK;
     public UsuarioVO() {
     }
 
@@ -60,8 +60,5 @@ public class UsuarioVO {
 
     public void setIdRolFK(String idRolFK) {
         this.idRolFK = idRolFK;
-    }
-           
-    
-    
+    }                  
 }

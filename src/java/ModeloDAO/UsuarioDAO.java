@@ -75,12 +75,12 @@ public class UsuarioDAO extends Conexion implements Crud{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    public boolean iniciarSesion(String usuario, String contraseña) {
+    public boolean iniciarSesion(String nombreUsuario, String contraseña) {
         try {
             conexion = this.obtenerConexion();
-            sql = "select * from usuario where usuario=? and contraseña=?";
+            sql = "select * from usuario where nombreUsuario=? and contraseña=?";
             puente = conexion.prepareStatement(sql);
-            puente.setString(1, usuario);
+            puente.setString(1, nombreUsuario);
             puente.setString(2, contraseña);
             mensajero = puente.executeQuery();
             if (mensajero.next()) {
@@ -98,20 +98,21 @@ public class UsuarioDAO extends Conexion implements Crud{
         return operacion;
     }
     
-    /*public ArrayList<UsuarioVO> rol(String usuario) {
+    public ArrayList<UsuarioVO> rol(String usuario) {
         ArrayList<UsuarioVO> listaRol = new ArrayList<>();
         try {
             conexion = this.obtenerConexion();
-            sql = "SELECT usuario.idUsuario, rol.nombreRol\n"
+            sql = "SELECT nombreUsuario.idUsuario, rol.nombreRol\n"
                     + "FROM rol INNER JOIN\n"
-                    + "usuario ON rol.idRol = usuario.idRol INNER JOIN\n"
-                    + "usuario ON usuario.idUsuario = usuario.idUsuario\n"
-                    + "WHERE usuario.idUsuario = ?"; 
+                    + "idRol(FK) ON rol.idRol = idRol.idRol INNER JOIN\n"
+                    + " ON idRol(FK).USUID = nombreUsuario.idUsuario\n"
+                    + "WHERE usuario.nombreUsuario = ?"; 
             puente = conexion.prepareStatement(sql);
-            puente.setString(1, usuario);
             mensajero = puente.executeQuery();
+            puente.setString(1, usuario);
             while (mensajero.next()) {
-                UsuarioVO usuVO = new UsuarioVO(mensajero.getString(1), mensajero.getString(2));
+                UsuarioVO usuVO = new UsuarioVO(mensajero.getString(1), mensajero.getString(2), mensajero.getString(3), mensajero.getString(4)
+                       , mensajero.getString(5));
                 listaRol.add(usuVO);
             }
         } catch (Exception e) {
@@ -120,5 +121,5 @@ public class UsuarioDAO extends Conexion implements Crud{
         }
         return listaRol;
     }
-    */   
+
 }
