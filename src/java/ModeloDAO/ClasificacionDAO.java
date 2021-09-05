@@ -6,6 +6,7 @@
 package ModeloDAO;
 
 import ModeloVO.ClasificacionVO;
+import ModeloVO.UsuarioVO;
 import Util.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -90,4 +91,6 @@ public class ClasificacionDAO extends Conexion {
         }
         return claVO;
     }
+   
+   
 }

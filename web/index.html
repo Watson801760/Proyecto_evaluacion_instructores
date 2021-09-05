@@ -11,12 +11,27 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <center>
-        
-    </center>
-    <div>
-        <a href="PreguntasControlador?accion=listar"></a>
-    </div>
+        <h1>Correo con javamail</h1>
+        <form method="POST" action="ParametrosCorreo">
+            <table>
+                <tr>
+                    <td>Destino</td>
+                    <td><input type="text" name="destinatario"></td>
+                </tr>
+                <tr>
+                    <td>asunto</td>
+                    <td><input type="text" name="asunto"></td>
+                </tr>
+                <tr>
+                    <td>Contenido</td>
+                    <td><textarea rows="10" name="contenido"></textarea></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" value="Enviar"></td>
+                </tr>
+            </table>
+            
+        </form>
     </body>
    
 </html>
