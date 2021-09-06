@@ -29,14 +29,14 @@ body{
 	transform: translate(-100%, -50%);
 }
 
-#logo {
-    width: 70px;
-    height: 60px;
+img {
+    width: 210px;
+    height: 80px;
 }
 
 h1{
     margin: 0;
-	padding: 0;
+    padding: 0;
     text-align: center;
     font-family: cursive;
     margin-bottom: 4%;
@@ -74,6 +74,9 @@ input:focus{
     cursor: pointer;
     border: none;
     margin-bottom: 15px;
+    width: 100%;
+    font-family: cursive;
+    font-size: 16px;
 }
 
 .btn-color:hover {
@@ -99,9 +102,4 @@ a:hover {
 	padding: 60px 30px;
 	position: absolute;
 	transform: translate(0%, -50%);
-}
-
-.logo1{
-    width: 70px;
-    height: 60px;
 }

@@ -13,15 +13,15 @@
     <body>
         <form action="Usuario" method="POST">
             <div class="container">
-                <div>
-                    <div class="logo">
-                        <img id="logo" src="https://i.imgur.com/PSXxjNY.png">
-                    </div>
+                <div>                    
+                    <img src="Assets/Img/logo.png">                   
                     <h1>Inicio De Sesión</h1>                    
                     <div>
-                        <input type="text" id="usuario" name="usuario" placeholder="Usuario" class="form-control">                        
+                        <input type="text" id="usuario" name="usuario" placeholder="Usuario" class="form-control" >                        
                         <input type="password" id="password" name="password" placeholder="Password" class="form-control">
-                        <input type="submit" value="Ingresar" class="btn-block btn-color"></input>
+                        <button class="btn-block btn-color" >Ingresar
+                        <input class="form-control" type="hidden" value="3" name="opcion">
+                        </button>
                         <a href="#">¿Olvido su contraseña?</a>                        
                     </div>                                                           
                 </div>
