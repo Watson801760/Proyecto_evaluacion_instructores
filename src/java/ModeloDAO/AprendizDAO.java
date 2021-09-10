@@ -162,4 +162,33 @@ public class AprendizDAO extends Conexion implements Crud{
         }*/
         return aprenVO;
     }
+    
+    public AprendizVO Aprendiz (String funcionarioV){
+    
+    AprendizVO AprenVO= null;
+        try {
+            conexion = this.obtenerConexion();
+            sql="select * from funcionario where numIdentidad=?";
+            puente= conexion.prepareStatement(sql);
+            puente.setString(1,funcionarioV);
+            mensajero= puente.executeQuery();
+            
+            while(mensajero.next()){
+            
+                AprenVO= new AprendizVO (mensajero.getString(1), mensajero.getString(2), mensajero.getString(3),
+                                        mensajero.getString(4),mensajero.getString(5),mensajero.getString(6),mensajero.getString(7));
+            }
+            
+        } catch (Exception e) {
+            Logger.getLogger(AprendizDAO.class.getName()).log(Level.SEVERE, null, e);
+        }/*finally{    
+            try {
+                this.cerrarConexion();
+                
+            } catch (SQLException e) {
+                Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }*/
+        return AprenVO;
+    }
 }

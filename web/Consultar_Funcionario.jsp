@@ -23,7 +23,7 @@
     </head>
     <body>
         <div class="container">
-        <h1>Instructor</h1>
+        <h1>Funcionarios</h1>
      
                 <table class="table table-striped table-bordered " style="width: 100%" id="example">
                      <thead>

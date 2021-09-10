@@ -52,7 +52,9 @@ public class AprendizControlador extends HttpServlet {
        
         switch(opcion){
           case 1:
-                if(aprenDAO.agregarRegistro()) {
+              if ( aprenDAO.Aprendiz(numIdentidad) != null) {
+                    request.setAttribute("mensajeError", "El Aprendiz ya existe");
+                } else if(aprenDAO.agregarRegistro()) {
                     request.setAttribute("mensajeExito", "El aprendiz se registro correctamente");
                 }else{
                     request.setAttribute("mensajeError", "El aprendiz no se pudo registrar correctamente");
