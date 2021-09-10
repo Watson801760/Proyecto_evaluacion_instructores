@@ -4,6 +4,9 @@
     Author     : user
 --%>
 
+<%@page import="ModeloVO.CoordinacionVO"%>
+<%@page import="ModeloDAO.CoordinacionDAO"%>
+<%@page import="ModeloDAO.CoordinacionDAO"%>
 <%@page import="ModeloVO.FuncionarioVO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -11,6 +14,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link href="Assets/CSS/bootstrap.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <div class="container" >
@@ -33,7 +37,19 @@
                 Correo<br>
                 <input class="form-control" type="text" name="textCorreo" value="<%= funVO.getCorreo()%>"><br>  
                 NumeroIdentidad<br>
-                <input class="form-control" type="text" name="textIdentidad" value="<%= funVO.getNumIdentidad()%>"><br>  
+                <input class="form-control" type="text" name="textIdentidad" value="<%= funVO.getNumIdentidad()%>"><br> 
+                Coordinacion
+                <select class="form-select"  name="textCoFK">
+                            <option><%=funVO.getIdCoordinacionFK() %></option>
+                            <%
+                                CoordinacionDAO cooDAO = new CoordinacionDAO();
+                                for (CoordinacionVO cooVO: cooDAO.listar() ) {
+                            %>
+                            <option value="<%=cooVO.getIdCoordinacion() %>"> <%=cooVO.getNombreCoordinacion() %></option>
+                            <%
+                                }
+                            %>
+               </select><br>
                 <button class="btn btn-warning" >Actualizar</button>
 
                 <input type="hidden" value="3" name="opcion">

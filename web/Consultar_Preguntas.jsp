@@ -19,6 +19,7 @@
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.11.1/css/dataTables.bootstrap4.min.css">
+        <link href="Assets/plugins/sweetAlert2/sweetalert2.min.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <div class="container mb-5 mt-3">
@@ -67,9 +68,9 @@
                         </td>
                         <td class="text-center" >
                             <form method="POST" action="Preguntas">
-                            <button class="btn btn-warning">Borrar</button>
-                            <input type="hidden" value="2" name="opcion">
-                            <input type="hidden" value="<%=preVO.getIdPregunta()%>" name="textId">
+                            <button id="btn1" class="btn btn-warning">Borrar</button>
+                            <input   type="hidden" value="2" name="opcion">
+                            <input id="codigo" type="hidden" value="<%=preVO.getIdPregunta()%>" name="textId">
                             </form>
                             
                         </td>
@@ -95,6 +96,8 @@
        
        <script src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js"></script>  
        <script src="https://cdn.datatables.net/1.11.1/js/dataTables.bootstrap4.min.js"></script> 
+       <script src="Assets/plugins/sweetAlert2/sweetalert2.all.min.js" type="text/javascript"></script>
+       <script src="Assets/js/alert.js" type="text/javascript"></script>
        <script>
           $(document).ready(function() {
                 $('#example').DataTable();

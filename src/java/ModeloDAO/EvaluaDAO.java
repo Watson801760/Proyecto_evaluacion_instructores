@@ -28,9 +28,13 @@ public class EvaluaDAO extends Conexion{
         public EvaluaVO consultarAprendiz(String id){
     EvaluaVO evaVO= null;
         try {
+            System.out.println("1");
             conexion= this.obtenerConexion();
-            sql="select * from evalua where `idAprendiz(FK)`= ? ";
+             System.out.println("2");
+            sql="SELECT `idAprendiz(FK)`, idAprendiz FROM evalua AS eva INNER JOIN aprendiz AS apren ON eva.`idAprendiz(FK)`=apren.idAprendiz WHERE idAprendiz=? ";
+             System.out.println("3");
             puente= conexion.prepareStatement(sql);
+             System.out.println("4"+id);
             puente.setString(1, id);
             mensajero= puente.executeQuery();
             while(mensajero.next()){
@@ -38,14 +42,14 @@ public class EvaluaDAO extends Conexion{
             }
         } catch (Exception e) {
             Logger.getLogger(EvaluaDAO.class.getName()).log(Level.SEVERE, null, e);
-        }finally{    
+        }/*finally{    
             try {
                 this.cerrarConexion();
                 
             } catch (SQLException e) {
                 Logger.getLogger(EvaluaDAO.class.getName()).log(Level.SEVERE, null, e);
             }
-        }
+        }*/
         return evaVO;
     }
         
@@ -53,7 +57,7 @@ public class EvaluaDAO extends Conexion{
     EvaluaVO evaVO= null;
         try {
             conexion= this.obtenerConexion();
-            sql="select * from evalua where `idFuncionario(FK)`= ? ";
+            sql="SELECT `idFuncionario(FK)`, idFuncionario FROM evalua AS eva INNER JOIN funcionario AS fun ON eva.`idFuncionario(FK)`=fun.idFuncionario WHERE idFuncionario=? ";
             puente= conexion.prepareStatement(sql);
             puente.setString(1, id);
             mensajero= puente.executeQuery();

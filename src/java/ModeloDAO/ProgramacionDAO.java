@@ -5,14 +5,18 @@
  */
 package ModeloDAO;
 
-import ModeloVO.FuncionarioVO;
+import ModeloVO.ProgramacionVO;
 import Util.Conexion;
 import Util.Crud;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,51 +24,60 @@ import java.util.logging.Logger;
  *
  * @author user
  */
-public class FuncionarioDAO extends Conexion implements Crud {
+public class ProgramacionDAO extends Conexion implements Crud  {
+    
     private Connection conexion;
     private PreparedStatement puente;
     private ResultSet mensajero;
     
     private boolean operacion= false;
     private String sql;
-    private String idFuncionario="",nombre="",apellido="",correo="",numIdentidad="",urlFoto="",idUsuarioFK="",idCoordinacionFK="" ;
+    private String idProgramacion="",codigoAcceso="",semestre="",idEvaluacionFK="";
+    private Date fechaInicio,fechaFin;
     
-    public FuncionarioDAO (FuncionarioVO funVO){
+    String inActiveDate = null;
+    
+   public ProgramacionDAO (ProgramacionVO proVO){
       super();
         try {
             conexion= this.obtenerConexion();
-            idFuncionario=funVO.getIdFuncionario();
-            nombre=funVO.getNombre();
-            apellido=funVO.getApellido();
-            correo=funVO.getCorreo();
-            numIdentidad=funVO.getNumIdentidad();
-            urlFoto=funVO.getUrlFoto();
-            idUsuarioFK=funVO.getIdUsuarioFK();
-            idCoordinacionFK=funVO.getIdCoordinacionFK();
-            
+            idProgramacion=proVO.getIdProgramacion();
+            SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+            fechaInicio = (Date) proVO.getFechaInicio();
+            fechaFin= (Date) proVO.getFechaFin();
+            inActiveDate = format1.format(proVO.getFechaInicio());
+            //fechaInicio= proVO.getFechaInicio();
+            //fechaFin= proVO.getFechaFin();
+            codigoAcceso=proVO.getCodigoAcceso();
+            semestre=proVO.getSemestre();
+            idEvaluacionFK=proVO.getIdEvaluacionFK();
            } catch (Exception e) {
             Logger.getLogger(AprendizDAO.class.getName()).log(Level.SEVERE, null, e);
         } 
     }
-
     @Override
     public boolean agregarRegistro() {
-         try {
-       
-            sql="insert into funcionario (`nombre`,`apellido`,`correo`,`numIdentidad`,`idCoordinacion(FK)`) values(?,?,?,?,?) ";
+        try {
+            
+            System.out.println("fechaInicio: "+fechaInicio);
+            System.out.println("fechaFin: "+fechaFin);
+            System.out.println("codigoAcceso: "+codigoAcceso);
+            System.out.println("semestre: "+semestre);
+            
+            sql="insert into programacion (`fechaInicio`,`fechaFin`,`codigoAcceso`,`semestre`) values(?,?,?,?) ";
        
             puente= conexion.prepareStatement(sql);
-            puente.setString(1,nombre);
-            puente.setString(2,apellido);
-            puente.setString(3,correo);
-            puente.setString(4,numIdentidad);
-            puente.setString(5,idCoordinacionFK);
+            puente.setDate(1, fechaInicio);
+            puente.setDate(2, fechaFin);
+            
+            puente.setString(3,codigoAcceso);
+            puente.setString(4,semestre);
             puente.executeUpdate();
             this.operacion=true;
             
          
         } catch (SQLException e) {
-            Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(ProgramacionDAO.class.getName()).log(Level.SEVERE, null, e);
         }/*finally{    
             try {
                 this.cerrarConexion();
@@ -73,57 +86,55 @@ public class FuncionarioDAO extends Conexion implements Crud {
                 Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);
             }
         }*/
-        return operacion;
-    }
+        return operacion;}
 
     @Override
     public boolean actualizarRegistro(String valor, String id) {
        try {
-            sql="update funcionario set nombre=?, apellido=?, correo=?, numIdentidad=? ,`idCoordinacion(FK)`=? where idFuncionario=? ";
+            sql="update programacion set fechaInicio=?, fechaFin=?, codigoAcceso=?, semestre=? where idProgramacion=? ";
             puente= conexion.prepareStatement(sql);
             puente.setString(1, valor);
-            puente.setString(2,apellido );
-            puente.setString(3,correo );
-            puente.setString(4,numIdentidad );
-            puente.setString(5,idCoordinacionFK);
-            puente.setString(6,id);
+            puente.setDate(2, fechaFin);
+            puente.setString(3,codigoAcceso);
+            puente.setString(4,semestre);
+            puente.setString(5, id);
             
             puente.executeUpdate();
             this.operacion= true;
             
             
         } catch (SQLException e) {
-            Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(ProgramacionDAO.class.getName()).log(Level.SEVERE, null, e);
         }
         return operacion;
     }
+
 
     @Override
     public boolean eliminarRegistro(String id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    public ArrayList<FuncionarioVO>listar(){
-        ArrayList<FuncionarioVO>ListaFuncionario= new ArrayList<>();
+    public ArrayList<ProgramacionVO>listar(){
+        ArrayList<ProgramacionVO>ListaProgramacion= new ArrayList<>();
     
         try {
             conexion= this.obtenerConexion();
-            sql="select * from Funcionario ";
+            sql="select * from programacion ";
             puente= conexion.prepareStatement(sql);
             mensajero= puente.executeQuery();
             
             while(mensajero.next()){
             
-                FuncionarioVO funVO = new FuncionarioVO (mensajero.getString(1), mensajero.getString(2), mensajero.getString(3),
-                                                   mensajero.getString(4),mensajero.getString(5),mensajero.getString(6),mensajero.getString(7),
-                                                   mensajero.getString(8));
-                ListaFuncionario.add(funVO);
+                ProgramacionVO proVO = new ProgramacionVO(mensajero.getString(1), mensajero.getString(2), mensajero.getString(3),
+                                                   mensajero.getString(4),mensajero.getDate(5),mensajero.getDate(6));
+                ListaProgramacion.add(proVO);
                         
             
             }
           
         } catch (Exception e) {
-            Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(ProgramacionDAO.class.getName()).log(Level.SEVERE, null, e);
         }/*finally{    
             try {
                 this.cerrarConexion();
@@ -132,28 +143,26 @@ public class FuncionarioDAO extends Conexion implements Crud {
                 Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);
             }
         }*/
-        return ListaFuncionario;
+        return ListaProgramacion;
     }
     
-    public FuncionarioVO consultarFuncionario (String id){
+     public ProgramacionVO consultarProgramacion (String id){
     
-    FuncionarioVO funVO= null;
+    ProgramacionVO  proVO= null;
         try {
             conexion = this.obtenerConexion();
-            sql="select * from funcionario where idFuncionario=?";
+            sql="select * from programacion where idProgramacion=?";
             puente= conexion.prepareStatement(sql);
             puente.setString(1,id);
             mensajero= puente.executeQuery();
-            
             while(mensajero.next()){
             
-                funVO= new FuncionarioVO (mensajero.getString(1), mensajero.getString(2), mensajero.getString(3),
-                                        mensajero.getString(4),mensajero.getString(5),mensajero.getString(6),mensajero.getString(7),
-                                        mensajero.getString(8));
+                proVO= new ProgramacionVO (mensajero.getString(1), mensajero.getString(2), mensajero.getString(3),
+                                        mensajero.getString(4),mensajero.getDate(5),mensajero.getDate(6));
             }
             
         } catch (Exception e) {
-            Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(ProgramacionDAO.class.getName()).log(Level.SEVERE, null, e);
         }/*finally{    
             try {
                 this.cerrarConexion();
@@ -162,6 +171,6 @@ public class FuncionarioDAO extends Conexion implements Crud {
                 Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);
             }
         }*/
-        return funVO;
+        return proVO;
     }
 }

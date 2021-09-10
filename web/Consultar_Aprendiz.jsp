@@ -4,6 +4,8 @@
     Author     : user
 --%>
 
+<%@page import="ModeloDAO.EvaluaDAO"%>
+<%@page import="ModeloVO.EvaluaVO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="ModeloDAO.AprendizDAO"%>
 <%@page import="ModeloVO.AprendizVO"%>
@@ -37,11 +39,19 @@
                          <% 
                     AprendizVO aprenVO = new AprendizVO();
                     AprendizDAO aprenDAO= new AprendizDAO(aprenVO);
-        
+                    EvaluaVO evaVO = new EvaluaVO();
+                    EvaluaDAO evaDAO = new EvaluaDAO();
                     ArrayList<AprendizVO>ListaAprendiz=aprenDAO.listar();
                     for (int i = 0; i < ListaAprendiz.size(); i++) {
                         
-                            aprenVO= ListaAprendiz.get(i);
+                        
+                    aprenVO= ListaAprendiz.get(i);
+                      if(evaDAO.consultarAprendiz(aprenVO.getIdAprendiz())!=null){
+                            request.setAttribute("mensajeExito", "Ha realizado la evaluación");
+                        }else{
+                            request.setAttribute("mensajeError", "No ha realizado la evaluación");
+                        }      
+                            
             
                     %>
                     
@@ -50,7 +60,12 @@
                         <td class="text-center" ><%=aprenVO.getApellido() %></td>
                         <td class="text-center" ><%=aprenVO.getCorreo() %></td>
                         <td class="text-center" ><%=aprenVO.getNumIdentidad() %></td>
-                        <td class="text-center" ></td>
+                        <td class="text-center" ><%if (request.getAttribute("mensajeError") == null) {%>
+                                                <div style="color:aqua;">${mensajeExito}</div>
+                                                <% } else if (request.getAttribute("mensajeExito") == null) {%>
+                                                <div style="color:red;">${mensajeError}</div>
+                                                <%}%>
+                                                 </td>
                         <td class="text-center" >
                             <form method="POST" action="Aprendiz">
                             <button class="btn btn-warning">Actualizar</button>

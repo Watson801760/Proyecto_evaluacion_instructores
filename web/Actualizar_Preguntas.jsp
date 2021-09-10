@@ -31,6 +31,7 @@
           Pregunta<br>
           <input class="form-control" type="text" name="sql" value="<%= preVO.getPregunta()%>"><br>
           <input class="form-control" type="hidden" name="id" value="<%= preVO.getIdPregunta() %>"><br>
+          Clasificacion
           <select class="form-select" type="text" name="textClasificacion" >
                <option  value="<%= preVO.getIdClasificacionFK()%>"></option>
                             <%

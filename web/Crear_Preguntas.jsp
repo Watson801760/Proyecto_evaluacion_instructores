@@ -20,6 +20,7 @@
         <form method="POST" action="Preguntas">
             Preguntas
             <input class="form-control" type="text" name="textPreguntas"><br>
+            Clasificacion
             <select class="form-select" name="textClasificacion">
                             <option>Seleccione...</option>
                             <%

@@ -4,6 +4,8 @@
     Author     : user
 --%>
 
+<%@page import="ModeloVO.CoordinacionVO"%>
+<%@page import="ModeloDAO.CoordinacionDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -24,7 +26,18 @@
             <input class="form-control" type="text" name="textCorreo"><br>
             Numero de Idetidad
             <input class="form-control" type="text" name="textIdentidad"><br>
-            
+            Coordinacion
+             <select class="form-select" name="textCoFK">
+                            <option>Seleccione...</option>
+                            <%
+                                CoordinacionDAO cooDAO = new CoordinacionDAO();
+                                for (CoordinacionVO cooVO: cooDAO.listar() ) {
+                            %>
+                            <option value="<%=cooVO.getIdCoordinacion() %>"> <%=cooVO.getNombreCoordinacion() %></option>
+                            <%
+                                }
+                            %>
+            </select><br>
             <button class="btn btn-warning" >Registrar</button>
             <input class="form-control" type="hidden" value="1" name="opcion">
             

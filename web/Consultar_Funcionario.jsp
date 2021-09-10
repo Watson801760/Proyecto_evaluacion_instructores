@@ -4,6 +4,8 @@
     Author     : user
 --%>
 
+<%@page import="ModeloDAO.EvaluaDAO"%>
+<%@page import="ModeloVO.EvaluaVO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="ModeloDAO.FuncionarioDAO"%>
 <%@page import="ModeloVO.FuncionarioVO"%>
@@ -21,7 +23,7 @@
     </head>
     <body>
         <div class="container">
-        <h1>Aprendices</h1>
+        <h1>Instructor</h1>
      
                 <table class="table table-striped table-bordered " style="width: 100%" id="example">
                      <thead>
@@ -38,11 +40,18 @@
                         <% 
                     FuncionarioVO funVO = new FuncionarioVO();
                     FuncionarioDAO funDAO= new FuncionarioDAO(funVO);
-        
+                    EvaluaVO evaVO = new EvaluaVO();
+                    EvaluaDAO evaDAO = new EvaluaDAO();
                     ArrayList<FuncionarioVO>ListaFuncionario=funDAO.listar();
                     for (int i = 0; i < ListaFuncionario.size(); i++) {
                         
+                        
                             funVO= ListaFuncionario.get(i);
+                        if(evaDAO.consultarAprendiz(funVO.getIdFuncionario())!=null){
+                       
+                        }else{
+                            request.setAttribute("mensajeError", "No ha sido evaluado");
+                        }      
             
                     %>
                     
@@ -51,7 +60,11 @@
                         <td class="text-center" ><%=funVO.getApellido() %></td>
                         <td class="text-center" ><%=funVO.getCorreo() %></td>
                         <td class="text-center" ><%=funVO.getNumIdentidad() %></td>
-                        <td class="text-center" ></td>
+                        <td class="text-center" ><%if (request.getAttribute("mensajeError") == null) {%>
+                                                <div style="color:aqua;">${mensajeExito}</div>
+                                                <% } else if (request.getAttribute("mensajeExito") == null) {%>
+                                                <div style="color:red;">${mensajeError}</div>
+                                                <%}%></td>
                         <td class="text-center" >
                             <form method="POST" action="Funcionario">
                             <button class="btn btn-warning">Actualizar</button>

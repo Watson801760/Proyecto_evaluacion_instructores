@@ -5,22 +5,26 @@
  */
 package ModeloVO;
 
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  *
  * @author user
  */
 public class ProgramacionVO {
-    private String idProgramacion,fechaInicio,fechaFin,codigoAcceso,semestre,idEvaluacionFK;
+  private String idProgramacion,codigoAcceso,semestre,idEvaluacionFK;
+    private Date fechaInicio,fechaFin;
     public ProgramacionVO() {
     }
-
-    public ProgramacionVO(String idProgramacion, String fechaInicio, String fechaFin, String codigoAcceso, String semestre, String idEvaluacionFK) {
+    
+    public ProgramacionVO(String idProgramacion, String codigoAcceso, String semestre, String idEvaluacionFK, Date fechaInicio, Date fechaFin) {
         this.idProgramacion = idProgramacion;
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
         this.codigoAcceso = codigoAcceso;
         this.semestre = semestre;
         this.idEvaluacionFK = idEvaluacionFK;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
     }
 
     public String getIdProgramacion() {
@@ -29,22 +33,6 @@ public class ProgramacionVO {
 
     public void setIdProgramacion(String idProgramacion) {
         this.idProgramacion = idProgramacion;
-    }
-
-    public String getFechaInicio() {
-        return fechaInicio;
-    }
-
-    public void setFechaInicio(String fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
-
-    public String getFechaFin() {
-        return fechaFin;
-    }
-
-    public void setFechaFin(String fechaFin) {
-        this.fechaFin = fechaFin;
     }
 
     public String getCodigoAcceso() {
@@ -69,6 +57,22 @@ public class ProgramacionVO {
 
     public void setIdEvaluacionFK(String idEvaluacionFK) {
         this.idEvaluacionFK = idEvaluacionFK;
+    }
+
+    public Date getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public Date getFechaFin() {
+        return fechaFin;
+    }
+
+    public void setFechaFin(Date fechaFin) {
+        this.fechaFin = fechaFin;
     }
     
 }
