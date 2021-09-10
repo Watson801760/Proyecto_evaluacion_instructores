@@ -9,6 +9,7 @@ import ModeloVO.NivelVO;
 import Util.Conexion;
 import Util.Crud;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,92 +17,70 @@ import java.util.logging.Logger;
  *
  * @author Sofia
  */
-public class NivelDAO extends Conexion implements Crud {
+public class NivelDAO extends Conexion {
 
     private Connection conexion;
     private PreparedStatement puente;
     private ResultSet mensajero;
-
-    private boolean operacion = false;
     private String sql;
-    private String idNivel = "", nombreFormacion = "";
 
-    public NivelDAO(NivelVO nilVO) {
-        super();
+    public ArrayList<NivelVO> listar() {
+        ArrayList<NivelVO> ListaNivel = new ArrayList<>();
+
         try {
             conexion = this.obtenerConexion();
-            idNivel = nilVO.getIdNivel();
-            nombreFormacion = nilVO.getNombreFormacion();
+            sql = "select * from nivel ";
+            puente = conexion.prepareStatement(sql);
+            mensajero = puente.executeQuery();
+            while (mensajero.next()) {
+
+                NivelVO nilVO = new NivelVO(mensajero.getString(1), mensajero.getString(2));
+                ListaNivel.add(nilVO);
+            }
         } catch (Exception e) {
             Logger.getLogger(NivelDAO.class.getName()).log(Level.SEVERE, null, e);
-        }
-    }
-
-    @Override
-    public boolean agregarRegistro() {
-        try {
-            sql = "INSERT INTO nivel(idNivel, nombreFormacion) VALUES (?,?)";
-
-            puente = conexion.prepareStatement(sql);
-            puente.setString(1, idNivel);
-            puente.setString(2, nombreFormacion);
-            puente.executeUpdate();
-            this.operacion = true;
-
-        } catch (SQLException e) {
-            Logger.getLogger(NivelDAO.class.getName()).log(Level.SEVERE, null, e);
-        } finally {
+        } /*finally {
             try {
                 this.cerrarConexion();
+
             } catch (SQLException e) {
                 Logger.getLogger(NivelDAO.class.getName()).log(Level.SEVERE, null, e);
             }
-        }
-        return operacion;
+        }*/
+        return ListaNivel;
     }
 
-    @Override
-    public boolean actualizarRegistro(String valor, String id) {
+    public NivelVO consultarNivel(String id) {
+        NivelVO nilVO = null;
         try {
-            sql = "UPDATE nivel SET nombreFormacion=? WHERE idNivel=?";
-
+            System.out.println("1");
+            conexion = this.obtenerConexion();
+            System.out.println("2");
+            sql = "select * from nivel where idNivel= ? ";
+            System.out.println("3" + sql);
             puente = conexion.prepareStatement(sql);
-            puente.setString(1, nombreFormacion);
-            puente.setString(2, idNivel);
-            puente.executeUpdate();
-            this.operacion = true;
-
-        } catch (SQLException e) {
-            Logger.getLogger(NivelDAO.class.getName()).log(Level.SEVERE, null, e);
-        } finally {
-            try {
-                this.cerrarConexion();
-            } catch (SQLException e) {
-                Logger.getLogger(NivelDAO.class.getName()).log(Level.SEVERE, null, e);
-            }
-        }
-        return operacion;
-    }
-
-    @Override
-    public boolean eliminarRegistro(String id) {
-        try {
-            sql = "DELETE FROM nivel WHERE idNivel=?";
-
-            puente = conexion.prepareStatement(sql);
+            System.out.println("4" + id);
             puente.setString(1, id);
-            puente.executeUpdate();
-            this.operacion = true;
+            mensajero = puente.executeQuery();
+            System.out.println("5");
 
-        } catch (SQLException e) {
+            while (mensajero.next()) {
+                System.out.println("6");
+
+                nilVO = new NivelVO(mensajero.getString(1), mensajero.getString(2));
+
+            }
+
+        } catch (Exception e) {
             Logger.getLogger(NivelDAO.class.getName()).log(Level.SEVERE, null, e);
         } finally {
             try {
                 this.cerrarConexion();
+
             } catch (SQLException e) {
                 Logger.getLogger(NivelDAO.class.getName()).log(Level.SEVERE, null, e);
-            }            
+            }
         }
-        return operacion;
+        return nilVO;
     }
 }

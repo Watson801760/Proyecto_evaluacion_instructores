@@ -45,11 +45,10 @@ public class ProgramaDAO extends Conexion implements Crud {
     @Override
     public boolean agregarRegistro() {
         try {
-            sql = "INSERT INTO programa(nombrePrograma, versionPrograma) VALUES (?,?)";
+            sql = "INSERT INTO programa(nombrePrograma) VALUES (?)";
 
             puente = conexion.prepareStatement(sql);
             puente.setString(1, nombrePrograma);
-            puente.setString(2, versionPrograma);
             puente.executeUpdate();
             this.operacion = true;
 
