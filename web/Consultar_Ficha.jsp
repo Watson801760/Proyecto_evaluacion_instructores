@@ -1,12 +1,11 @@
 <%-- 
-    Document   : Consultar_Funcionario
-    Created on : 28-ago-2021, 22:28:45
-    Author     : user
+    Document   : consultar_Ficha
+    Created on : 10-sep-2021, 6:17:27
+    Author     : Usuario
 --%>
-
 <%@page import="java.util.ArrayList"%>
-<%@page import="ModeloDAO.FuncionarioDAO"%>
-<%@page import="ModeloVO.FuncionarioVO"%>
+<%@page import="ModeloDAO.FichaDAO"%>
+<%@page import="ModeloVO.FichaVO"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -21,42 +20,44 @@
     </head>
     <body>
         <div class="container">
-        <h1>Funcionarios</h1>
+        <h1>Fichas</h1>
      
                 <table class="table table-striped table-bordered " style="width: 100%" id="example">
                      <thead>
                         <tr>
-                        <th class="text-center">Nombre</th>
-                        <th class="text-center" >Apellido</th>
-                        <th class="text-center" >Correo</th>
-                        <th class="text-center" >numIdentidad</th>
-                        <th class="text-center" >Evaluaciòn</th>
+                        <th class="text-center">Numero de ficha</th>
+                        <th class="text-center" >Fecha de inicio electiva</th>
+                        <th class="text-center" >Fecha de Finalizacion electiva</th>
+                        <th class="text-center" >Fecha de inicio productiva</th>
+                        <th class="text-center" >Fecha de Finalizacion productiva</th>
+                        <th class="text-center" >Estado</th>
                         <th></th>    
                     </tr>
                     </thead>
                     <tbody>
                         <% 
-                    FuncionarioVO funVO = new FuncionarioVO();
-                    FuncionarioDAO funDAO= new FuncionarioDAO(funVO);
+                    FichaVO fichVO = new FichaVO();
+                    FichaDAO fichDAO= new FichaDAO(fichVO);
         
-                    ArrayList<FuncionarioVO>ListaFuncionario=funDAO.listar();
-                    for (int i = 0; i < ListaFuncionario.size(); i++) {
+                    ArrayList<FichaVO>ListaFicha=fichDAO.listar();
+                    for (int i = 0; i < ListaFicha.size(); i++) {
                         
-                            funVO= ListaFuncionario.get(i);
+                            fichVO= ListaFicha.get(i);
             
                     %>
                     
                     <tr>
-                        <td class="text-center" ><%=funVO.getNombre() %></td>
-                        <td class="text-center" ><%=funVO.getApellido() %></td>
-                        <td class="text-center" ><%=funVO.getCorreo() %></td>
-                        <td class="text-center" ><%=funVO.getNumIdentidad() %></td>
+                        <td class="text-center" ><%=fichVO.getNumeroFicha()%></td>
+                        <td class="text-center" ><%=fichVO.getFechaInicioElectiva()%></td>
+                        <td class="text-center" ><%=fichVO.getFechaFinElectiva()%></td>
+                        <td class="text-center" ><%=fichVO.getFechaInicioProductiva()%></td>
+                        <td class="text-center" ><%=fichVO.getFechaFinProductiva()%></td>
                         <td class="text-center" ></td>
                         <td class="text-center" >
-                            <form method="POST" action="Funcionario">
+                            <form method="POST" action="Ficha">
                             <button class="btn btn-warning">Actualizar</button>
                             <input type="hidden" value="4" name="opcion">
-                            <input type="hidden" value="<%=funVO.getIdFuncionario() %>" name="textId">
+                            <input type="hidden" value="<%=fichVO.getIdFicha() %>" name="textIdfich">
                             </form>
                         </td>
                     </tr>
@@ -68,17 +69,18 @@
                     </tfoot>
                     
                     <tr>
-                        <th class="text-center">Nombre</th>
-                        <th class="text-center" >Apellido</th>
-                        <th class="text-center" >Correo</th>
-                        <th class="text-center" >numIdentidad</th>
-                        <th class="text-center" >Evaluaciòn</th>
+                        <th class="text-center">Numero de ficha</th>
+                        <th class="text-center" >Fecha de inicio electiva</th>
+                        <th class="text-center" >Fecha de Finalizacion electiva</th>
+                        <th class="text-center" >Fecha de inicio productiva</th>
+                        <th class="text-center" >Fecha de Finalizacion productiva</th>
+                        <th class="text-center" >Estado</th>
                         <th></th>    
                     </tr>
                 </table>
          
                 <a class="btn btn-success" href="MenuAdministrador.jsp">Volver</a>
-                <a class="btn btn-success" href="Crear_Funcionario.jsp">Registrar</a>
+                <a class="btn btn-success" href="Crear_Ficha.jsp">Registrar</a>
         </div>
          <script src="https://code.jquery.com/jquery-3.5.1.js"></script> 
        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script> 
@@ -93,3 +95,4 @@
        </script>           
     </body>
 </html>
+
