@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Sofia
  */
-@WebServlet(name = "ProgramaControlador", urlPatterns = {"/ProgramaControlador"})
+@WebServlet(name = "ProgramaControlador", urlPatterns = {"/Programa"})
 public class ProgramaControlador extends HttpServlet {
 
     /**
