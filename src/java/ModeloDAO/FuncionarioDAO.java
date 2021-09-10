@@ -164,4 +164,34 @@ public class FuncionarioDAO extends Conexion implements Crud {
         }*/
         return funVO;
     }
+    
+    public FuncionarioVO Funcionario (String funcionarioV){
+    
+    FuncionarioVO funVO= null;
+        try {
+            conexion = this.obtenerConexion();
+            sql="select * from funcionario where numIdentidad=?";
+            puente= conexion.prepareStatement(sql);
+            puente.setString(1,funcionarioV);
+            mensajero= puente.executeQuery();
+            
+            while(mensajero.next()){
+            
+                funVO= new FuncionarioVO (mensajero.getString(1), mensajero.getString(2), mensajero.getString(3),
+                                        mensajero.getString(4),mensajero.getString(5),mensajero.getString(6),mensajero.getString(7),
+                                        mensajero.getString(8));
+            }
+            
+        } catch (Exception e) {
+            Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, e);
+        }/*finally{    
+            try {
+                this.cerrarConexion();
+                
+            } catch (SQLException e) {
+                Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }*/
+        return funVO;
+    }
 }

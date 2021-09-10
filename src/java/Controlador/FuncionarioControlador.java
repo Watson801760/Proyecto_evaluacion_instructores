@@ -52,7 +52,9 @@ public class FuncionarioControlador extends HttpServlet {
         
         switch(opcion){
           case 1:
-                if(funDAO.agregarRegistro()) {
+              if ( funDAO.Funcionario(numIdentidad) != null) {
+                    request.setAttribute("mensajeError", "El instructor ya existe");
+                } else if(funDAO.agregarRegistro()) {
                     request.setAttribute("mensajeExito", "El Funcionario se registro correctamente");
                 }else{
                     request.setAttribute("mensajeError", "El Funcionario no se pudo registrar correctamente");
