@@ -20,6 +20,7 @@
             <form method="POST" action="Programa">
                 Programa
                 <input class="form-control" type="text" name="textPrograma"><br>
+                Nivel
                 <select class="form-select" name="textNivel">
                     <option>Seleccione...</option>
                     <%
