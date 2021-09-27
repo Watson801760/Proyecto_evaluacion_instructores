@@ -5,6 +5,7 @@
  */
 package Controlador;
 
+import ModeloDAO.RolDAO;
 import ModeloDAO.UsuarioDAO;
 import ModeloVO.UsuarioVO;
 import java.io.IOException;
@@ -39,11 +40,11 @@ public class UsuarioControlador extends HttpServlet {
         int opcion = Integer.parseInt(request.getParameter("opcion"));
         String idUsuario = request.getParameter("textId");
         String nombreUsuario = request.getParameter("textUsuario");
-        String contraseña = request.getParameter("textContraseña");
+        String contrasena = request.getParameter("textContrasena");
         String estado = request.getParameter("textEstado");
         String idRolFK = request.getParameter("textRol");
 
-        UsuarioVO usuVO = new UsuarioVO(idUsuario, nombreUsuario, contraseña, estado, idRolFK);
+        UsuarioVO usuVO = new UsuarioVO(idUsuario, nombreUsuario, contrasena, estado, idRolFK);
         UsuarioDAO usuDAO = new UsuarioDAO(usuVO);
         
         switch (opcion) {
@@ -63,25 +64,40 @@ public class UsuarioControlador extends HttpServlet {
                 }
                 request.getRequestDispatcher("").forward(request, response);
                 break;
-            case 3://inicio de sesion                
-                if (usuDAO.iniciarSesion(nombreUsuario, contraseña)){
-
-                    HttpSession miSesion = request.getSession(true);                    
-                    usuVO = new UsuarioVO(idUsuario, nombreUsuario, contraseña, estado, idRolFK);
-                    miSesion.setAttribute("datos", usuVO);
-                    ArrayList<UsuarioVO> listaRol = usuDAO.rol(nombreUsuario);
-
+            case 3://inicio de sesion    
+                System.out.println("1"+nombreUsuario);
+                String usuId = "";
+                System.out.println("2"+contrasena);
+                if (usuDAO.iniciarSesion(nombreUsuario, contrasena)){
+                    System.out.println("3");
+                    RolDAO rol = new RolDAO();
+                    System.out.println("4");
+                    HttpSession miSesion = request.getSession(true);    
+                    System.out.println("5");
+                    usuVO = new UsuarioVO(idUsuario, nombreUsuario, contrasena);
+                    System.out.println("6");
+                    miSesion.setAttribute("datosUsuario", usuVO);
+                    System.out.println("7 "+nombreUsuario);
+                    ArrayList<UsuarioVO> listaRol = rol.rol(nombreUsuario);
+                    System.out.println("8");
                     for (int i = 0; i < listaRol.size(); i++) {
                         usuVO = listaRol.get(i);
-                        idUsuario = usuVO.getIdUsuario();
+                    System.out.println("9");    
+                        usuId = usuVO.getIdUsuario();
                     }
-                                                           
-                    miSesion.setAttribute("rol", listaRol);                    
-                    if (listaRol.size() > 1) {
-                        request.getRequestDispatcher("Actualizar_Aprendiz.jsp").forward(request, response);
-                    } else if (usuVO.getIdRolFK().equals("funcionario")) {
+                    System.out.println("10");                                       
+                    miSesion.setAttribute("rol", listaRol);  
+                    System.out.println("11");
+                    if (usuVO.getIdRolFK().equals("Administrador")) {
+                      System.out.println("12");  
                         request.getRequestDispatcher("MenuAdministrador.jsp").forward(request, response);
-                    } else {
+                     System.out.println("13");   
+                    } else if (usuVO.getIdRolFK().equals("Aprendiz")) {
+                      System.out.println("14");  
+                        request.getRequestDispatcher("Instructores.jsp").forward(request, response);
+                     System.out.println("15");   
+                    } else if (usuVO.getIdRolFK().equals("Instructor")) {
+                     System.out.println("16");   
                         request.getRequestDispatcher("MenuAdministrador.jsp").forward(request, response);
                     }                                        
                 }else{

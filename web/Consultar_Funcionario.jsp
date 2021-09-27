@@ -4,6 +4,8 @@
     Author     : user
 --%>
 
+<%@page import="ModeloVO.SalonVO"%>
+<%@page import="ModeloDAO.SalonDAO"%>
 <%@page import="ModeloDAO.EvaluaDAO"%>
 <%@page import="ModeloVO.EvaluaVO"%>
 <%@page import="java.util.ArrayList"%>
@@ -24,7 +26,22 @@
     <body>
         <div class="container">
         <h1>Funcionarios</h1>
-     
+          <form method="POST" action="Funcionario">
+            <button class="btn btn-warning">Consultar</button>
+             <select class="form-select" name="sql">
+                            <option>Seleccione...</option>
+                            <%
+                                SalonDAO salDAO = new SalonDAO();
+                                for (SalonVO salVO: salDAO.listar()) {
+                            %>
+                            <option value="<%=salVO.getIdFichaFK() %>"> <%=salVO.getIdFichaFK() %></option>
+                            <%
+                                }
+                            %>
+            </select>
+            
+            <input type="hidden" value="5" name="opcion">
+        </form><br>
                 <table class="table table-striped table-bordered " style="width: 100%" id="example">
                      <thead>
                         <tr>
@@ -48,7 +65,7 @@
                         
                             funVO= ListaFuncionario.get(i);
                         if(evaDAO.consultarAprendiz(funVO.getIdFuncionario())!=null){
-                       
+                           
                         }else{
                             request.setAttribute("mensajeError", "No ha sido evaluado");
                         }      

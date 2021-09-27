@@ -8,7 +8,9 @@
 <%@page import="ModeloDAO.FuncionarioDAO"%>
 <%@page import="ModeloVO.FuncionarioVO"%>
 <%@page import="ModeloVO.FuncionarioVO"%>
+<%@include file="Sesiones.jsp" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 
 <html>

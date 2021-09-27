@@ -13,6 +13,17 @@ public class UsuarioVO {
     private String idUsuario, nombreUsuario, contraseña, estado, idRolFK;
     public UsuarioVO() {
     }
+    public UsuarioVO(String idUsuario, String idRolFK) {
+        this.idUsuario = idUsuario;
+        this.idRolFK = idRolFK;
+    }
+    
+    public UsuarioVO(String idUsuario, String nombreUsuario, String contraseña) {
+        this.idUsuario = idUsuario;
+        this.nombreUsuario = nombreUsuario;
+        this.contraseña = contraseña;
+    }
+    
 
     public UsuarioVO(String idUsuario, String nombreUsuario, String contraseña, String estado, String idRolFK) {
         this.idUsuario = idUsuario;

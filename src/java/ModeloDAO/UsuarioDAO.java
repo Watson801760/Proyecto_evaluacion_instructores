@@ -74,20 +74,27 @@ public class UsuarioDAO extends Conexion implements Crud{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    public boolean iniciarSesion(String nombreUsuario, String contraseña) {
+    public boolean iniciarSesion(String nombreUsuario, String contrasena) {
         try {
+            System.out.println("conexion");
             conexion = this.obtenerConexion();
+            System.out.println("obtiene la conexion");
             sql = "select * from usuario where nombreUsuario=? and contraseña=?";
+            System.out.println("habre consulta");
             puente = conexion.prepareStatement(sql);
+            System.out.println("nombre usuario"+nombreUsuario);
             puente.setString(1, nombreUsuario);
-            puente.setString(2, contraseña);
+            System.out.println("contraseña"+contrasena);
+            puente.setString(2, contrasena);
+            System.out.println("se rcogen los datos");
             mensajero = puente.executeQuery();
+            System.out.println("se ejecuta la conexion");
             if (mensajero.next()) {
                 operacion = true;
             }
         } catch (SQLException e) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
-        } finally {
+        }finally {
             try {
                 //this.cerrarConexion();
             } catch (Exception e) {
@@ -97,24 +104,6 @@ public class UsuarioDAO extends Conexion implements Crud{
         return operacion;
     }
     
-    public ArrayList<UsuarioVO> rol(String usuario) {
-        ArrayList<UsuarioVO> listaRol = new ArrayList<>();
-        try {
-            conexion = this.obtenerConexion();
-            sql = "SELECT usuario.idUsuario, rol.nombreRol FROM rol INNER JOIN usuario ON rol.idRol = usuario.`idRol(FK)` WHERE usuario.idUsuario ="; 
-            puente = conexion.prepareStatement(sql);
-            mensajero = puente.executeQuery();
-            puente.setString(1, usuario);
-            while (mensajero.next()) {
-                UsuarioVO usuVO = new UsuarioVO(mensajero.getString(1), mensajero.getString(2), mensajero.getString(3), mensajero.getString(4)
-                       , mensajero.getString(5));
-                listaRol.add(usuVO);
-            }
-        } catch (Exception e) {
-            Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
-            System.err.println(e.toString());
-        }
-        return listaRol;
-    }
+
 
 }

@@ -194,4 +194,36 @@ public class FuncionarioDAO extends Conexion implements Crud {
         }*/
         return funVO;
     }
+    
+      public ArrayList<FuncionarioVO>listarFicha(String ficha){
+        ArrayList<FuncionarioVO> ListaFuncionario= new ArrayList<>();
+    
+        try {
+            conexion= this.obtenerConexion();
+            sql="SELECT funcionario.idFuncionario, funcionario.nombre, funcionario.apellido, funcionario.correo, funcionario.numIdentidad FROM funcionario INNER JOIN usuario ON funcionario.`idUsuario(FK)` = usuario.idUsuario INNER JOIN salon ON usuario.idUsuario = salon.`idUsuario(FK)` WHERE salon.`idFicha(FK)` =?";
+            puente= conexion.prepareStatement(sql);
+             puente.setString(1, ficha);
+            mensajero= puente.executeQuery();
+            
+            while(mensajero.next()){
+            
+                FuncionarioVO funVO = new FuncionarioVO(mensajero.getString(1), mensajero.getString(2), mensajero.getString(3),
+                                                   mensajero.getString(4),mensajero.getString(5),mensajero.getString(6),mensajero.getString(7),mensajero.getString(8));
+                ListaFuncionario.add(funVO);
+                        
+            
+            }
+          
+        } catch (Exception e) {
+            Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, e);
+        }/*finally{    
+            try {
+                this.cerrarConexion();
+                
+            } catch (SQLException e) {
+                Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }*/
+        return ListaFuncionario;
+    }
 }

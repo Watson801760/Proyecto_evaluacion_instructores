@@ -97,7 +97,14 @@ public class FuncionarioControlador extends HttpServlet {
                 }
                 break;    
         
-        
+            case 5:
+                
+                if (funDAO.listarFicha(valor) != null ) {
+                    request.setAttribute("mensajeExito", "Ficha Consultada");
+                }else{
+                    request.setAttribute("mensajeError", "No se ha encontrado la ficha ");
+                    request.getRequestDispatcher("Consultar_Aprendiz.jsp").forward(request, response);
+                }
         }
     }
 

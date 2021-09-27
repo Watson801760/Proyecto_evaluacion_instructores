@@ -97,8 +97,14 @@ public class AprendizControlador extends HttpServlet {
                     request.getRequestDispatcher("Consultar_Aprendiz.jsp").forward(request, response);
                 }
                 break;    
-        
-        
+            case 5:
+                
+                if (aprenDAO.listarFicha(valor) != null ) {
+                    request.setAttribute("mensajeExito", "Ficha Consultada");
+                }else{
+                    request.setAttribute("mensajeError", "No se ha encontrado la ficha ");
+                    request.getRequestDispatcher("Consultar_Aprendiz.jsp").forward(request, response);
+                }
         }
     }  
 
