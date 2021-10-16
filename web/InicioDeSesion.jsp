@@ -18,7 +18,7 @@
                 <div>
                     <input type="text" id="usuario" name="textUsuario" placeholder="Usuario" class="form-control" >  
                     
-                    <input type="text" id="password" name="textContrasena" placeholder="Contraseña" class="form-control">
+                    <input type="password" id="password" name="textContrasena" placeholder="Contraseña" class="form-control">
                     
                     <button class="btn-block btn-color" >Ingresar</button>
                     <input class="form-control" type="hidden" value="3" name="opcion">
