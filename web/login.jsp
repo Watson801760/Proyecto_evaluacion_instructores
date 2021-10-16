@@ -12,7 +12,7 @@
   <meta charset="UTF-8">
   <title>CodePen - Day 001 Login Form</title>
   <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:600'>
-  <link rel="stylesheet" href="Assets/CSS/login.css" type="text/css">
+  <link rel="stylesheet" href="Assets/css/login.css" type="text/css">
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <!-- Mobile Metas -->
