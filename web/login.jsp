@@ -58,6 +58,13 @@
                                 <a href="#forgot">¿Olvido la contraseña?</a>
                             </div>
                         </div>
+                        
+                        <%if (request.getAttribute("mensajeError") == null) {%>
+                                <div style="color:aqua;">${mensajeExito}</div>
+                                <% } else if (request.getAttribute("mensajeExito") == null) {%>
+                                <div style="color:red;">${mensajeError}</div>
+                                <%}%>
+                        
                         <div class="sign-up-htm">
                             <div class="group">
                                 <br><br>

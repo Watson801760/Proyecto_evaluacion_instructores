@@ -105,6 +105,15 @@ public class FuncionarioControlador extends HttpServlet {
                     request.setAttribute("mensajeError", "No se ha encontrado la ficha ");
                     request.getRequestDispatcher("Consultar_Aprendiz.jsp").forward(request, response);
                 }
+            case 6:
+                boolean aa = funDAO.actualizarFuncionario(valor, id);
+                if (aa == true) {
+                    request.setAttribute("mensajeExito", "El Instructor se actualizo ");
+                }else{
+                    request.setAttribute("mensajeError", "El Instructor no se pudo actualizar");
+                }
+                request.getRequestDispatcher("Actualizar_Instructor.jsp").forward(request, response);
+                break; 
         }
     }
 

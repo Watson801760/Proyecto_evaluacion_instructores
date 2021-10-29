@@ -21,48 +21,48 @@ import java.util.logging.Logger;
  * @author user
  */
 public class FuncionarioDAO extends Conexion implements Crud {
+
     private Connection conexion;
     private PreparedStatement puente;
     private ResultSet mensajero;
-    
-    private boolean operacion= false;
+
+    private boolean operacion = false;
     private String sql;
-    private String idFuncionario="",nombre="",apellido="",correo="",numIdentidad="",urlFoto="",idUsuarioFK="",idCoordinacionFK="" ;
-    
-    public FuncionarioDAO (FuncionarioVO funVO){
-      super();
+    private String idFuncionario = "", nombre = "", apellido = "", correo = "", numIdentidad = "", urlFoto = "", idUsuarioFK = "", idCoordinacionFK = "";
+
+    public FuncionarioDAO(FuncionarioVO funVO) {
+        super();
         try {
-            conexion= this.obtenerConexion();
-            idFuncionario=funVO.getIdFuncionario();
-            nombre=funVO.getNombre();
-            apellido=funVO.getApellido();
-            correo=funVO.getCorreo();
-            numIdentidad=funVO.getNumIdentidad();
-            urlFoto=funVO.getUrlFoto();
-            idUsuarioFK=funVO.getIdUsuarioFK();
-            idCoordinacionFK=funVO.getIdCoordinacionFK();
-            
-           } catch (Exception e) {
+            conexion = this.obtenerConexion();
+            idFuncionario = funVO.getIdFuncionario();
+            nombre = funVO.getNombre();
+            apellido = funVO.getApellido();
+            correo = funVO.getCorreo();
+            numIdentidad = funVO.getNumIdentidad();
+            urlFoto = funVO.getUrlFoto();
+            idUsuarioFK = funVO.getIdUsuarioFK();
+            idCoordinacionFK = funVO.getIdCoordinacionFK();
+
+        } catch (Exception e) {
             Logger.getLogger(AprendizDAO.class.getName()).log(Level.SEVERE, null, e);
-        } 
+        }
     }
 
     @Override
     public boolean agregarRegistro() {
-         try {
-       
-            sql="insert into funcionario (`nombre`,`apellido`,`correo`,`numIdentidad`,`idCoordinacion(FK)`) values(?,?,?,?,?) ";
-       
-            puente= conexion.prepareStatement(sql);
-            puente.setString(1,nombre);
-            puente.setString(2,apellido);
-            puente.setString(3,correo);
-            puente.setString(4,numIdentidad);
-            puente.setString(5,idCoordinacionFK);
+        try {
+
+            sql = "insert into funcionario (`nombre`,`apellido`,`correo`,`numIdentidad`,`idCoordinacion(FK)`) values(?,?,?,?,?) ";
+
+            puente = conexion.prepareStatement(sql);
+            puente.setString(1, nombre);
+            puente.setString(2, apellido);
+            puente.setString(3, correo);
+            puente.setString(4, numIdentidad);
+            puente.setString(5, idCoordinacionFK);
             puente.executeUpdate();
-            this.operacion=true;
-            
-         
+            this.operacion = true;
+
         } catch (SQLException e) {
             Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);
         }/*finally{    
@@ -78,10 +78,157 @@ public class FuncionarioDAO extends Conexion implements Crud {
 
     @Override
     public boolean actualizarRegistro(String valor, String id) {
+        try {
+            sql = "update funcionario set nombre=?, apellido=?, correo=?, numIdentidad=? ,`idCoordinacion(FK)`=? where idFuncionario=? ";
+            puente = conexion.prepareStatement(sql);
+            puente.setString(1, valor);
+            puente.setString(2, apellido);
+            puente.setString(3, correo);
+            puente.setString(4, numIdentidad);
+            puente.setString(5, idCoordinacionFK);
+            puente.setString(6, id);
+
+            puente.executeUpdate();
+            this.operacion = true;
+
+        } catch (SQLException e) {
+            Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return operacion;
+    }
+
+    @Override
+    public boolean eliminarRegistro(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public ArrayList<FuncionarioVO> listar() {
+        ArrayList<FuncionarioVO> ListaFuncionario = new ArrayList<>();
+
+        try {
+            conexion = this.obtenerConexion();
+            sql = "select * from Funcionario ";
+            puente = conexion.prepareStatement(sql);
+            mensajero = puente.executeQuery();
+
+            while (mensajero.next()) {
+
+                FuncionarioVO funVO = new FuncionarioVO(mensajero.getString(1), mensajero.getString(2), mensajero.getString(3),
+                        mensajero.getString(4), mensajero.getString(5), mensajero.getString(6), mensajero.getString(7),
+                        mensajero.getString(8));
+                ListaFuncionario.add(funVO);
+
+            }
+
+        } catch (Exception e) {
+            Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, e);
+        }/*finally{    
+            try {
+                this.cerrarConexion();
+                
+            } catch (SQLException e) {
+                Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }*/
+        return ListaFuncionario;
+    }
+
+    public FuncionarioVO consultarFuncionario(String id) {
+
+        FuncionarioVO funVO = null;
+        try {
+            conexion = this.obtenerConexion();
+            sql = "select * from funcionario where idFuncionario=?";
+            puente = conexion.prepareStatement(sql);
+            puente.setString(1, id);
+            mensajero = puente.executeQuery();
+
+            while (mensajero.next()) {
+
+                funVO = new FuncionarioVO(mensajero.getString(1), mensajero.getString(2), mensajero.getString(3),
+                        mensajero.getString(4), mensajero.getString(5), mensajero.getString(6), mensajero.getString(7),
+                        mensajero.getString(8));
+            }
+
+        } catch (Exception e) {
+            Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, e);
+        }/*finally{    
+            try {
+                this.cerrarConexion();
+                
+            } catch (SQLException e) {
+                Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }*/
+        return funVO;
+    }
+
+    public FuncionarioVO Funcionario(String funcionarioV) {
+
+        FuncionarioVO funVO = null;
+        try {
+            conexion = this.obtenerConexion();
+            sql = "select * from funcionario where numIdentidad=?";
+            puente = conexion.prepareStatement(sql);
+            puente.setString(1, funcionarioV);
+            mensajero = puente.executeQuery();
+
+            while (mensajero.next()) {
+
+                funVO = new FuncionarioVO(mensajero.getString(1), mensajero.getString(2), mensajero.getString(3),
+                        mensajero.getString(4), mensajero.getString(5), mensajero.getString(6), mensajero.getString(7),
+                        mensajero.getString(8));
+            }
+
+        } catch (Exception e) {
+            Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, e);
+        }/*finally{    
+            try {
+                this.cerrarConexion();
+                
+            } catch (SQLException e) {
+                Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }*/
+        return funVO;
+    }
+
+    public ArrayList<FuncionarioVO> listarFicha(String ficha) {
+        ArrayList<FuncionarioVO> ListaFuncionario = new ArrayList<>();
+
+        try {
+            conexion = this.obtenerConexion();
+            sql = "SELECT funcionario.idFuncionario, funcionario.nombre, funcionario.apellido, funcionario.correo, funcionario.numIdentidad FROM funcionario INNER JOIN usuario ON funcionario.`idUsuario(FK)` = usuario.idUsuario INNER JOIN salon ON usuario.idUsuario = salon.`idUsuario(FK)` WHERE salon.`idFicha(FK)` =?";
+            puente = conexion.prepareStatement(sql);
+            puente.setString(1, ficha);
+            mensajero = puente.executeQuery();
+
+            while (mensajero.next()) {
+
+                FuncionarioVO funVO = new FuncionarioVO(mensajero.getString(1), mensajero.getString(2), mensajero.getString(3),
+                        mensajero.getString(4), mensajero.getString(5), mensajero.getString(6), mensajero.getString(7), mensajero.getString(8));
+                ListaFuncionario.add(funVO);
+
+            }
+
+        } catch (Exception e) {
+            Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, e);
+        }/*finally{    
+            try {
+                this.cerrarConexion();
+                
+            } catch (SQLException e) {
+                Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }*/
+        return ListaFuncionario;
+    }
+    
+    public boolean actualizarFuncionario(String valor, String id) {
        try {
             sql="update funcionario set nombre=?, apellido=?, correo=?, numIdentidad=? ,`idCoordinacion(FK)`=? where idFuncionario=? ";
             puente= conexion.prepareStatement(sql);
-            puente.setString(1, valor);
+            puente.setString(1, valor);    
             puente.setString(2,apellido );
             puente.setString(3,correo );
             puente.setString(4,numIdentidad );
@@ -97,61 +244,24 @@ public class FuncionarioDAO extends Conexion implements Crud {
         }
         return operacion;
     }
+    
+    public FuncionarioVO consultarInstructor(String nombre) {
 
-    @Override
-    public boolean eliminarRegistro(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    public ArrayList<FuncionarioVO>listar(){
-        ArrayList<FuncionarioVO>ListaFuncionario= new ArrayList<>();
-    
-        try {
-            conexion= this.obtenerConexion();
-            sql="select * from Funcionario ";
-            puente= conexion.prepareStatement(sql);
-            mensajero= puente.executeQuery();
-            
-            while(mensajero.next()){
-            
-                FuncionarioVO funVO = new FuncionarioVO (mensajero.getString(1), mensajero.getString(2), mensajero.getString(3),
-                                                   mensajero.getString(4),mensajero.getString(5),mensajero.getString(6),mensajero.getString(7),
-                                                   mensajero.getString(8));
-                ListaFuncionario.add(funVO);
-                        
-            
-            }
-          
-        } catch (Exception e) {
-            Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, e);
-        }/*finally{    
-            try {
-                this.cerrarConexion();
-                
-            } catch (SQLException e) {
-                Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);
-            }
-        }*/
-        return ListaFuncionario;
-    }
-    
-    public FuncionarioVO consultarFuncionario (String id){
-    
-    FuncionarioVO funVO= null;
+        FuncionarioVO funVO = null;
         try {
             conexion = this.obtenerConexion();
-            sql="select * from funcionario where idFuncionario=?";
-            puente= conexion.prepareStatement(sql);
-            puente.setString(1,id);
-            mensajero= puente.executeQuery();
-            
-            while(mensajero.next()){
-            
-                funVO= new FuncionarioVO (mensajero.getString(1), mensajero.getString(2), mensajero.getString(3),
-                                        mensajero.getString(4),mensajero.getString(5),mensajero.getString(6),mensajero.getString(7),
-                                        mensajero.getString(8));
+            sql = "SELECT funcionario.idFuncionario, funcionario.nombre, funcionario.apellido, funcionario.correo, funcionario.numIdentidad, funcionario.urlFoto, funcionario.`idUsuario(FK)`, funcionario.`idCoordinacion(FK)` FROM funcionario INNER JOIN usuario ON funcionario.`idUsuario(FK)` = usuario.idUsuario WHERE usuario.nombreUsuario = ";
+            puente = conexion.prepareStatement(sql);
+            puente.setString(1, nombre);
+            mensajero = puente.executeQuery();
+
+            while (mensajero.next()) {
+
+                funVO = new FuncionarioVO(mensajero.getString(1), mensajero.getString(2), mensajero.getString(3),
+                        mensajero.getString(4), mensajero.getString(5), mensajero.getString(6), mensajero.getString(7),
+                        mensajero.getString(8));
             }
-            
+
         } catch (Exception e) {
             Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, e);
         }/*finally{    
@@ -163,67 +273,5 @@ public class FuncionarioDAO extends Conexion implements Crud {
             }
         }*/
         return funVO;
-    }
-    
-    public FuncionarioVO Funcionario (String funcionarioV){
-    
-    FuncionarioVO funVO= null;
-        try {
-            conexion = this.obtenerConexion();
-            sql="select * from funcionario where numIdentidad=?";
-            puente= conexion.prepareStatement(sql);
-            puente.setString(1,funcionarioV);
-            mensajero= puente.executeQuery();
-            
-            while(mensajero.next()){
-            
-                funVO= new FuncionarioVO (mensajero.getString(1), mensajero.getString(2), mensajero.getString(3),
-                                        mensajero.getString(4),mensajero.getString(5),mensajero.getString(6),mensajero.getString(7),
-                                        mensajero.getString(8));
-            }
-            
-        } catch (Exception e) {
-            Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, e);
-        }/*finally{    
-            try {
-                this.cerrarConexion();
-                
-            } catch (SQLException e) {
-                Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);
-            }
-        }*/
-        return funVO;
-    }
-    
-      public ArrayList<FuncionarioVO>listarFicha(String ficha){
-        ArrayList<FuncionarioVO> ListaFuncionario= new ArrayList<>();
-    
-        try {
-            conexion= this.obtenerConexion();
-            sql="SELECT funcionario.idFuncionario, funcionario.nombre, funcionario.apellido, funcionario.correo, funcionario.numIdentidad FROM funcionario INNER JOIN usuario ON funcionario.`idUsuario(FK)` = usuario.idUsuario INNER JOIN salon ON usuario.idUsuario = salon.`idUsuario(FK)` WHERE salon.`idFicha(FK)` =?";
-            puente= conexion.prepareStatement(sql);
-             puente.setString(1, ficha);
-            mensajero= puente.executeQuery();
-            
-            while(mensajero.next()){
-            
-                FuncionarioVO funVO = new FuncionarioVO(mensajero.getString(1), mensajero.getString(2), mensajero.getString(3),
-                                                   mensajero.getString(4),mensajero.getString(5),mensajero.getString(6),mensajero.getString(7),mensajero.getString(8));
-                ListaFuncionario.add(funVO);
-                        
-            
-            }
-          
-        } catch (Exception e) {
-            Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, e);
-        }/*finally{    
-            try {
-                this.cerrarConexion();
-                
-            } catch (SQLException e) {
-                Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);
-            }
-        }*/
-        return ListaFuncionario;
     }
 }

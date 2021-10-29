@@ -5,8 +5,10 @@
  */
 package Controlador;
 
+import ModeloDAO.FuncionarioDAO;
 import ModeloDAO.RolDAO;
 import ModeloDAO.UsuarioDAO;
+import ModeloVO.FuncionarioVO;
 import ModeloVO.UsuarioVO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -43,6 +45,9 @@ public class UsuarioControlador extends HttpServlet {
         String contrasena = request.getParameter("textContrasena");
         String estado = request.getParameter("textEstado");
         String idRolFK = request.getParameter("textRol");
+                
+        FuncionarioVO funVO = new FuncionarioVO();
+        FuncionarioDAO funDAO = new FuncionarioDAO(funVO);
 
         UsuarioVO usuVO = new UsuarioVO(idUsuario, nombreUsuario, contrasena, estado, idRolFK);
         UsuarioDAO usuDAO = new UsuarioDAO(usuVO);
@@ -97,12 +102,18 @@ public class UsuarioControlador extends HttpServlet {
                         request.getRequestDispatcher("Instructores.jsp").forward(request, response);
                      System.out.println("15");   
                     } else if (usuVO.getIdRolFK().equals("Instructor")) {
-                     System.out.println("16");   
-                        request.getRequestDispatcher("MenuAdministrador.jsp").forward(request, response);
+                        funVO = funDAO.consultarInstructor(nombreUsuario);
+                        if(funVO!= null){
+                            request.setAttribute("Instructor Consultado", funVO);
+                            request.getRequestDispatcher("Actualizar_Instructor.jsp").forward(request, response);
+                        }else{
+                            request.getRequestDispatcher("login.jsp").forward(request, response);
+                            request.setAttribute("mensajeError", "No se encontraron datos del intructor");
+                        }
                     }                                        
                 }else{
                     request.setAttribute("mensajeError", "Datos de inicio de sesion incorrectos");
-                    request.getRequestDispatcher("InicioDeSesion.jsp").forward(request, response);
+                    request.getRequestDispatcher("login.jsp").forward(request, response);
                 }
                 break;            
         }
