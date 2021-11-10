@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Tevalúo</title>
-        <link href="Assets/CSS/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <link href="Assets/css/bootstrap.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <div class="container" >

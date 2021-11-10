@@ -5,9 +5,11 @@
  */
 package Controlador;
 
+import ModeloDAO.FichaDAO;
 import ModeloDAO.FuncionarioDAO;
 import ModeloDAO.RolDAO;
 import ModeloDAO.UsuarioDAO;
+import ModeloVO.FichaVO;
 import ModeloVO.FuncionarioVO;
 import ModeloVO.UsuarioVO;
 import java.io.IOException;
@@ -45,11 +47,14 @@ public class UsuarioControlador extends HttpServlet {
         String contrasena = request.getParameter("textContrasena");
         String estado = request.getParameter("textEstado");
         String idRolFK = request.getParameter("textRol");
-                
-        FuncionarioVO funVO = new FuncionarioVO();
-        FuncionarioDAO funDAO = new FuncionarioDAO(funVO);
+        
 
         UsuarioVO usuVO = new UsuarioVO(idUsuario, nombreUsuario, contrasena, estado, idRolFK);
+        UsuarioVO boVO = new UsuarioVO( nombreUsuario);
+        FuncionarioVO funVO = new FuncionarioVO();
+        FuncionarioDAO funDAO = new FuncionarioDAO(funVO);
+        FichaVO ficVO= new FichaVO();
+        FichaDAO ficDAO = new FichaDAO(ficVO);
         UsuarioDAO usuDAO = new UsuarioDAO(usuVO);
         
         switch (opcion) {
@@ -70,47 +75,60 @@ public class UsuarioControlador extends HttpServlet {
                 request.getRequestDispatcher("").forward(request, response);
                 break;
             case 3://inicio de sesion    
-                System.out.println("1"+nombreUsuario);
+         
                 String usuId = "";
-                System.out.println("2"+contrasena);
+             
                 if (usuDAO.iniciarSesion(nombreUsuario, contrasena)){
-                    System.out.println("3");
+            
                     RolDAO rol = new RolDAO();
-                    System.out.println("4");
+              
                     HttpSession miSesion = request.getSession(true);    
-                    System.out.println("5");
+                
                     usuVO = new UsuarioVO(idUsuario, nombreUsuario, contrasena);
-                    System.out.println("6");
+                 
                     miSesion.setAttribute("datosUsuario", usuVO);
-                    System.out.println("7 "+nombreUsuario);
+                    
                     ArrayList<UsuarioVO> listaRol = rol.rol(nombreUsuario);
-                    System.out.println("8");
+                
                     for (int i = 0; i < listaRol.size(); i++) {
                         usuVO = listaRol.get(i);
-                    System.out.println("9");    
+                 
                         usuId = usuVO.getIdUsuario();
                     }
-                    System.out.println("10");                                       
+                                                  
                     miSesion.setAttribute("rol", listaRol);  
-                    System.out.println("11");
+               
                     if (usuVO.getIdRolFK().equals("Administrador")) {
-                      System.out.println("12");  
+                     
                         request.getRequestDispatcher("MenuAdministrador.jsp").forward(request, response);
-                     System.out.println("13");   
+                
                     } else if (usuVO.getIdRolFK().equals("Aprendiz")) {
-                      System.out.println("14");  
+                        
+                        ficVO = ficDAO.consultarAprendiz_Ficha(nombreUsuario);   
+                        if(ficVO!= null){
+                      
+                        request.setAttribute("Ficha Consultada", ficVO);
+
+                        request.setAttribute("nomUsuario",nombreUsuario);
                         request.getRequestDispatcher("Instructores.jsp").forward(request, response);
-                     System.out.println("15");   
+                        
+                        }else{
+                        request.setAttribute("mensajeError", "No se encontraron fichas para el usuario ");
+                        request.getRequestDispatcher("login.jsp").forward(request, response);
+                        }
+                        
+                        
                     } else if (usuVO.getIdRolFK().equals("Instructor")) {
                         funVO = funDAO.consultarInstructor(nombreUsuario);
                         if(funVO!= null){
-                            request.setAttribute("Instructor Consultado", funVO);
-                            request.getRequestDispatcher("Actualizar_Instructor.jsp").forward(request, response);
+                        request.setAttribute("Instructor Consultado", funVO);
+                        request.getRequestDispatcher("Actualizar_Instructor.jsp").forward(request, response);
+                        System.out.println("se va a instructores");
                         }else{
-                            request.getRequestDispatcher("login.jsp").forward(request, response);
-                            request.setAttribute("mensajeError", "No se encontraron datos del intructor");
-                        }
-                    }                                        
+                        request.getRequestDispatcher("login.jsp").forward(request, response);
+                        request.getRequestDispatcher("MenuAdministrador.jsp").forward(request, response);
+                        }               
+                        
                 }else{
                     request.setAttribute("mensajeError", "Datos de inicio de sesion incorrectos");
                     request.getRequestDispatcher("login.jsp").forward(request, response);
@@ -128,11 +146,7 @@ public class UsuarioControlador extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
+ 
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -142,20 +156,13 @@ public class UsuarioControlador extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
+
 
     /**
      * Returns a short description of the servlet.
      *
      * @return a String containing servlet description
      */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
+    }
 }

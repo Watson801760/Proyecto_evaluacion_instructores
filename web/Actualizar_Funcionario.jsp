@@ -12,82 +12,54 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-        <link href="Assets/CSS/bootstrap.css" rel="stylesheet" type="text/css"/>
-
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">        
         <title>Tevalúo</title>
-        <link href="Assets/CSS/Style_Funcionario.css" rel="stylesheet" type="text/css"/>
-
+        <link href="Assets/css/Style_Funcionario.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <nav>
-            <ul>
-                <a href="#openModal">Lanzar el modal</a>
-
-                <div id="openModal" class="modalDialog">
-                    <div>
-                        <a href="#close" title="Close" class="close">X</a>
-                        <h2>Mi modal</h2>
-                        <p>Este es un ejemplo de modal, creado gracias al poder de CSS3.</p>
-                        <p>Puedes hacer un montón de cosas aquí, como alertas o incluso crear un formulario de registro aquí mismo.</p>
-                    </div>
-                </div>
-                <form method="POST" action="Funcionario">
-
-                    <%
-                        FuncionarioVO funVO = (FuncionarioVO) request.getAttribute("");
-                        if (funVO != null) {
-                    %>  
-
-                    <h1>Actualizar Funcionario</h1>
-
-                    Nombre<br>
-                    <input type="text" placeholder="textNombre" class="form-control" value="<%= funVO.getNombre()%>"><br>
-                    Apellido<br>
-                    <input class="form-control" type="text" name="textApellido" value="<%= funVO.getApellido()%>"><br> 
-                    Correo<br>
-                    <input class="form-control" type="text" name="textCorreo" value="<%= funVO.getCorreo()%>"><br>  
-                    NumeroIdentidad<br>
-                    <input class="form-control" type="text" name="textIdentidad" value="<%= funVO.getNumIdentidad()%>"><br>  
-                    <button class="btn btn-warning">Actualizar</button>
-
-
+            <%
+                FuncionarioVO funVO = (FuncionarioVO) request.getAttribute("");
+                if (funVO != null) {
+            %>  
             <form method="POST" action="Funcionario">
+                <h1>Actualizar Funcionario</h1>
                 Nombre<br>
-                <input class="form-control" type="text" name="sql" value="<%= funVO.getNombre()%>"><br>
-                
+                <input type="text" placeholder="textNombre" class="form-control" value="<%= funVO.getNombre()%>"><br>
                 Apellido<br>
                 <input class="form-control" type="text" name="textApellido" value="<%= funVO.getApellido()%>"><br> 
                 Correo<br>
                 <input class="form-control" type="text" name="textCorreo" value="<%= funVO.getCorreo()%>"><br>  
                 NumeroIdentidad<br>
-                <input class="form-control" type="text" name="textIdentidad" value="<%= funVO.getNumIdentidad()%>"><br> 
-                Coordinacion
-                <select class="form-select"  name="textCoFK">
-                            <option><%=funVO.getIdCoordinacionFK() %></option>
-                            <%
-                                CoordinacionDAO cooDAO = new CoordinacionDAO();
-                                for (CoordinacionVO cooVO: cooDAO.listar() ) {
-                            %>
-                            <option value="<%=cooVO.getIdCoordinacion() %>"> <%=cooVO.getNombreCoordinacion() %></option>
-                            <%
-                                }
-                            %>
-               </select><br>
-                <button class="btn btn-warning" >Actualizar</button>
-=======
+                <input class="form-control" type="text" name="textIdentidad" value="<%= funVO.getNumIdentidad()%>"><br>  
+                <button class="btn btn-warning">Actualizar</button>
+                <form method="POST" action="Funcionario">
+                    Nombre<br>
+                    <input class="form-control" type="text" name="sql" value="<%= funVO.getNombre()%>"><br>
+                    Apellido<br>
+                    <input class="form-control" type="text" name="textApellido" value="<%= funVO.getApellido()%>"><br> 
+                    Correo<br>
+                    <input class="form-control" type="text" name="textCorreo" value="<%= funVO.getCorreo()%>"><br>  
+                    NumeroIdentidad<br>
+                    <input class="form-control" type="text" name="textIdentidad" value="<%= funVO.getNumIdentidad()%>"><br> 
+                    Coordinacion
+                    <select class="form-select"  name="textCoFK">
+                        <option><%=funVO.getIdCoordinacionFK()%></option>
+                        <%
+                            CoordinacionDAO cooDAO = new CoordinacionDAO();
+                            for (CoordinacionVO cooVO : cooDAO.listar()) {
+                        %>
+                        <option value="<%=cooVO.getIdCoordinacion()%>"> <%=cooVO.getNombreCoordinacion()%></option>
+                        <%
+                            }
+                        %>
+                    </select><br>
+                    <button class="btn btn-warning" >Actualizar</button>                    
                     <input type="hidden" value="3" name="opcion">
-                    <input type="hidden" name="id" value="<%= funVO.getIdFuncionario()%>"><br>
->>>>>>> origin/master
-
+                    <input type="hidden" name="id" value="<%= funVO.getIdFuncionario()%>"><br>                    
                 </form>
-                </div>                
-                </div>
-
-            </ul>
+            </form>                
         </nav>
-
         <% }%>       
 
         <%if (request.getAttribute("mensajeError") == null) {%>

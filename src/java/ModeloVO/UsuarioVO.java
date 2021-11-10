@@ -10,9 +10,18 @@ package ModeloVO;
  * @author Sofia Paola
  */
 public class UsuarioVO {
+
+  
+
+    
     private String idUsuario, nombreUsuario, contraseña, estado, idRolFK;
     public UsuarioVO() {
     }
+    
+      public UsuarioVO(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+      
     public UsuarioVO(String idUsuario, String idRolFK) {
         this.idUsuario = idUsuario;
         this.idRolFK = idRolFK;

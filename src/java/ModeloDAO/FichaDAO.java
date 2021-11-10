@@ -49,6 +49,7 @@ public class FichaDAO extends Conexion implements Crud{
             Logger.getLogger(FichaDAO.class.getName()).log(Level.SEVERE, null, e);
         } 
     }
+
     
     @Override
     public boolean agregarRegistro() {
@@ -142,6 +143,62 @@ public class FichaDAO extends Conexion implements Crud{
             
         } catch (Exception e) {
             Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, e);
+        }/*finally{    
+            try {
+                this.cerrarConexion();
+                
+            } catch (SQLException e) {
+                Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }*/
+        return fichVO;
+    }
+    
+    
+    public FichaVO consultarAprendiz_Ficha(String nombre){
+    
+        FichaVO fichVO= null;
+        try {
+            System.out.println("conexion");
+            conexion = this.obtenerConexion();
+            System.out.println("obtiene la conexion");
+            sql="SELECT \n" +
+                "    ficha.idFicha,\n" +
+                "    ficha.numeroFicha,\n" +
+                "    ficha.fechaInicioElectiva,\n" +
+                "    ficha.fechaFinElectiva,\n" +
+                "    ficha.fechaInicioProductiva,\n" +
+                "    ficha.fechaFinProductiva,\n" +
+                "    ficha.estado,\n" +
+                "    ficha.`idPrograma(FK)` \n" +
+                "FROM salon \n" +
+                "LEFT JOIN usuario ON salon.`idUsuario(FK)` = usuario.idUsuario \n" +
+                "LEFT JOIN aprendiz ON usuario.idUsuario = aprendiz.`idUsuario(FK)` \n" +
+                "LEFT JOIN ficha ON salon.`idFicha(FK)` = ficha.idFicha \n" +
+                "WHERE usuario.nombreUsuario = ?";
+            System.out.println("habre consulta");
+            puente= conexion.prepareStatement(sql);
+            System.out.println("nombre usuario"+nombre);        
+            puente.setString(1, nombre);
+            System.out.println("se rcogen los datos");
+            mensajero= puente.executeQuery();
+            System.out.println("se ejecuta la conexion");
+            while(mensajero.next()){
+            
+                fichVO= new FichaVO(
+                    mensajero.getString(1),
+                    mensajero.getString(2),
+                    mensajero.getString(3),
+                    mensajero.getString(4),
+                    mensajero.getString(5),
+                    mensajero.getString(6),
+                    mensajero.getString(7),
+                    mensajero.getString(8)
+                );
+            }
+            
+        } catch (Exception e) {
+            Logger.getLogger(AprendizDAO.class.getName()).log(Level.SEVERE, null, e);
         }/*finally{    
             try {
                 this.cerrarConexion();
