@@ -41,16 +41,21 @@ public class AprendizControlador extends HttpServlet {
         String nombre = request.getParameter("textNombre");
         String apellido = request.getParameter("textApellido");
         String correo = request.getParameter("textCorreo");
+        String tipoDocumento = request.getParameter("textDocument");
         String numIdentidad =request.getParameter("textIdentidad");
         String urlFoto =request.getParameter("textFoto");
         String idUsuarioFK =request.getParameter("textUsuFK");
         String valor = request.getParameter("sql");
         String id = request.getParameter("id");
+        String ruta = "C:\\Users\\user\\OneDrive\\Documentos\\Excel\\";
         
-       AprendizVO aprenVO = new AprendizVO(idAprendiz, nombre, apellido, correo, numIdentidad, urlFoto, idUsuarioFK);
+       AprendizVO aprenVO = new AprendizVO(idAprendiz, nombre, apellido, correo,tipoDocumento, numIdentidad, urlFoto, idUsuarioFK);
        AprendizDAO aprenDAO = new AprendizDAO(aprenVO);
        
+        
+        System.out.println("se va a ejecutar la accion : "+opcion);
         switch(opcion){
+          
           case 1:
               if ( aprenDAO.Aprendiz(numIdentidad) != null) {
                     request.setAttribute("mensajeError", "El Aprendiz ya existe");
@@ -105,6 +110,25 @@ public class AprendizControlador extends HttpServlet {
                     request.setAttribute("mensajeError", "No se ha encontrado la ficha ");
                     request.getRequestDispatcher("Consultar_Aprendiz.jsp").forward(request, response);
                 }
+                
+            case 6:  
+                   System.out.println("inicia subir archivo");
+                   System.out.println("inicia subir archivo"+ valor);
+                   boolean fff = aprenDAO.Subir_Archivo(ruta+valor);
+                   System.out.println("boleano" + fff);
+                if ( fff == true) { 
+                    System.out.println("pasa" );
+                    request.setAttribute("mensajeExito", "se subioi archivo");
+                     System.out.println("y se subio el archivo" );
+                }else{
+                    System.out.println("no paso paila" );
+                    request.setAttribute("mensajeError", "No se encontro el archivo ");
+                    System.out.println("no paso paila2" );
+                 
+                }
+                request.getRequestDispatcher("Consultar_Aprendiz.jsp").forward(request, response);
+                break; 
+                    
         }
     }  
 

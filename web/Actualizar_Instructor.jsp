@@ -4,48 +4,46 @@
     Author     : user
 --%>
 
+<%@page import="ModeloVO.FuncionarioVO"%>
 <%@page import="ModeloVO.ClasificacionVO"%>
 <%@page import="ModeloDAO.ClasificacionDAO"%>
 <%@page import="ModeloVO.PreguntasVO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@include file="Sesiones.jsp" %>
+
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Actualizar Preguntas</title>
-        <link href="Assets/CSS/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <title>JSP Page</title>
     </head>
     <body>
-        <div class="container" >
-            <h1>Actualizar Preguntas</h1>
+       <div class="container" >
+            <h1>Actualizar Instructor</h1>
 
             <%
-                PreguntasVO preVO = (PreguntasVO) request.getAttribute("preguntaConsultada");
-                if (preVO != null) {
+                FuncionarioVO funVO = (FuncionarioVO) request.getAttribute("Instructor Consultado");
+                if (funVO != null) {
 
 
             %>  
-
-            <form method="POST" action="Preguntas">
-                Pregunta<br>
-                <input class="form-control" type="text" name="sql" value="<%= preVO.getPregunta()%>"><br>
-                <input class="form-control" type="hidden" name="id" value="<%= preVO.getIdPregunta()%>"><br>
-                Clasificacion
-                <select class="form-select" type="text" name="textClasificacion" >
-                    <option  value="<%= preVO.getIdClasificacionFK()%>"></option>
-                    <%
-                        ClasificacionDAO claDAO = new ClasificacionDAO();
-                        for (ClasificacionVO claVO : claDAO.listar()) {
-                    %>
-                    <option value="<%=claVO.getIdClasificacion()%>"> <%=claVO.getNombreClasificacion()%></option>
-                    <%
-                        }
-                    %>
-                </select>    
+                <form method="POST" action="Funcionario"  enctype="multipart/form-data">
+                Nombre<br>
+                <input class="form-control" type="text" name="sql" value="<%= funVO.getNombre()%>"><br>
+                Apellido<br>
+                <input class="form-control" type="text" name="textApellido" value="<%= funVO.getApellido()%>"><br> 
+                Correo<br>
+                <input class="form-control" type="text" name="textCorreo" value="<%= funVO.getCorreo()%>"><br>  
+                NumeroIdentidad<br>
+                <input class="form-control" type="text" name="textIdentidad" value="<%= funVO.getNumIdentidad()%>"><br>  
                 <button class="btn btn-warning" >Actualizar</button>
-                <input type="hidden" value="3" name="opcion">
+                <input type="hidden" value="6" name="opcion">
+                <input  type="hidden" name="id" value="<%= funVO.getIdFuncionario() %>"><br>
+                </form>
+                
 
-            </form>
+
 
             <% }%>       
 
@@ -54,8 +52,6 @@
             <% } else if (request.getAttribute("mensajeExito") == null) {%>
             <div style="color:red;">${mensajeError}</div>
             <%}%>
-
-            <a class="btn btn-success" href="Consultar_Preguntas.jsp">Volver</a>
-        </div>
+       </div>    
     </body>
 </html>

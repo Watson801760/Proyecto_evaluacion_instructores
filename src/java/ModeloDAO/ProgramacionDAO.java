@@ -59,10 +59,7 @@ public class ProgramacionDAO extends Conexion implements Crud  {
     public boolean agregarRegistro() {
         try {
             
-            System.out.println("fechaInicio: "+fechaInicio);
-            System.out.println("fechaFin: "+fechaFin);
-            System.out.println("codigoAcceso: "+codigoAcceso);
-            System.out.println("semestre: "+semestre);
+         
             
             sql="insert into programacion (`fechaInicio`,`fechaFin`,`codigoAcceso`,`semestre`) values(?,?,?,?) ";
        

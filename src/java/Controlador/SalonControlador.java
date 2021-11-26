@@ -5,6 +5,8 @@
  */
 package Controlador;
 
+import ModeloDAO.SalonDAO;
+import ModeloVO.SalonVO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,14 +14,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author user
  */
-@WebServlet(name = "Sesiones", urlPatterns = {"/Sesiones"})
-public class Sesiones extends HttpServlet {
+@WebServlet(name = "SalonControlador", urlPatterns = {"/Salon"})
+public class SalonControlador extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,11 +34,28 @@ public class Sesiones extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession buscarSesion= request.getSession();
-        buscarSesion.removeAttribute("datosUsuario");
-        buscarSesion.removeAttribute("rol");
-        buscarSesion.invalidate();
-        request.getRequestDispatcher("login.jsp").forward(request, response);
+        int opcion= Integer.parseInt(request.getParameter("opcion"));
+        String ruta = "C:\\Users\\user\\OneDrive\\Documentos\\Excel\\";
+        String valor = request.getParameter("sql");
+        SalonVO saloVO = new SalonVO();
+        SalonDAO saloDAO = new SalonDAO();
+        
+        switch(opcion){
+            case 1:
+                boolean fff = saloDAO.Subir_Archivo(ruta+valor);
+                   
+                if ( fff == true) { 
+                  
+                    request.setAttribute("mensajeExito", "se subio archivo");           
+                }else{                   
+                    request.setAttribute("mensajeError", "No se encontro el archivo ");
+                  
+                    request.getRequestDispatcher("Cargar_Informacion.jsp").forward(request, response);
+                  
+                   
+                }
+                break;  
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

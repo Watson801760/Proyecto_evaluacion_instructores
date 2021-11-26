@@ -8,6 +8,9 @@ package ModeloDAO;
 import ModeloVO.FuncionarioVO;
 import Util.Conexion;
 import Util.Crud;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +18,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
@@ -274,4 +280,109 @@ public class FuncionarioDAO extends Conexion implements Crud {
         }*/
         return funVO;
     }
+  public boolean Subir_Archivo (String archivo12) throws FileNotFoundException, IOException{
+      System.out.println("0" + archivo12);
+      FileInputStream archivo = new FileInputStream(archivo12);
+        System.out.println("1"+archivo);
+        XSSFWorkbook libro = new XSSFWorkbook(archivo);
+        System.out.println("2");
+        XSSFSheet hoja =  libro.getSheetAt(0);
+        System.out.println("3");
+        int numero_Filas = hoja.getLastRowNum();
+        System.out.println("4");
+        for(int i = 0;  i<= numero_Filas ; i++){
+            try {
+            Row fila = hoja.getRow(i);
+            Conexion conexion = new Conexion();
+            Connection conectar = conexion.obtenerConexion();
+            PreparedStatement insertar = conectar.prepareStatement("insert into funcionario (`nombre`,`apellido`,`correo`,`numIdentidad`,`idUsuario(FK)`,`idCoordinacion(FK)`) values(?,?,?,?,?,?)");
+           
+            insertar.setString(1,fila.getCell(0).getStringCellValue());
+          
+            insertar.setString(2,fila.getCell(1).getStringCellValue());
+         
+            insertar.setString(3,fila.getCell(2).getStringCellValue());
+         
+            insertar.setInt(4, (int) fila.getCell(3).getNumericCellValue());
+            
+            insertar.setInt(5, (int) fila.getCell(4).getNumericCellValue());
+            
+            insertar.setInt(6, (int) fila.getCell(5).getNumericCellValue());
+            insertar.executeUpdate();
+            this.operacion=true;
+            } catch (Exception e) {
+            Logger.getLogger(AprendizDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+        }
+        System.out.println("5");
+     
+       
+            
+            
+         
+        /*finally{    
+            try {
+                this.cerrarConexion();
+                
+            } catch (SQLException e) {
+                Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }*/
+        return operacion;
+    }
+    public ArrayList<FuncionarioVO>listarParaAprendiz(String ficha2){
+        ArrayList<FuncionarioVO> listarFicha= new ArrayList<>();
+          
+        try {
+            
+            conexion= this.obtenerConexion();
+           
+            sql="SELECT \n" +
+                "funcionario.idFuncionario, \n" +
+                "funcionario.nombre, \n" +
+                "funcionario.apellido, \n" +
+                "funcionario.correo, \n" +
+                "funcionario.numIdentidad, \n" +
+                "funcionario.urlFoto ,\n" +
+                "funcionario.`idUsuario(FK)` ,\n" +
+                "funcionario.`idCoordinacion(FK)` \n" +
+                "FROM funcionario \n" +
+                "INNER JOIN usuario ON funcionario.`idUsuario(FK)` = usuario.idUsuario \n" +
+                "INNER JOIN salon ON usuario.idUsuario = salon.`idUsuario(FK)` WHERE salon.`idFicha(FK)` = ?";
+            
+            puente= conexion.prepareStatement(sql);
+           
+             puente.setString(1, ficha2);
+             
+            mensajero= puente.executeQuery();
+            
+            while(mensajero.next()){
+            
+                FuncionarioVO funVO = new FuncionarioVO(
+                    mensajero.getString(1), 
+                    mensajero.getString(2), 
+                    mensajero.getString(3),
+                    mensajero.getString(4),
+                    mensajero.getString(5),
+                    mensajero.getString(6),
+                    mensajero.getString(7),
+                    mensajero.getString(8)
+                );
+                listarFicha.add(funVO);
+                        
+            
+            }
+          
+        } catch (Exception e) {
+            Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, e);
+        }/*finally{    
+            try {
+                this.cerrarConexion();
+                
+            } catch (SQLException e) {
+                Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }*/
+        return listarFicha;
+    }   
 }

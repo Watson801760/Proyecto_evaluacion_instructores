@@ -22,7 +22,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="Assets/css/bootstrap.css" rel="stylesheet" type="text/css"/>
-
+        
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
@@ -34,22 +34,24 @@
         <link href="Assets/css/ruang-admin.min.css" rel="stylesheet">
         <link href="Assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     </head>
-
+   
     <body>
-
-        <%           FichaVO ficVO = (FichaVO) request.getAttribute("Ficha Consultada");
-
+       
+       <%
+            FichaVO ficVO = (FichaVO) request.getAttribute("Ficha Consultada");
+            
             FuncionarioVO funVO = new FuncionarioVO();
-            if (funVO != null) {
-
-                FuncionarioDAO funDAO = new FuncionarioDAO(funVO);
-
-                ArrayList<FuncionarioVO> ListaFuncionario = funDAO.listarParaAprendiz(ficVO.getIdFicha());
-                for (int i = 0; i < ListaFuncionario.size(); i++) {
-
-                    funVO = ListaFuncionario.get(i);
-
-        %>
+                if (funVO != null) {
+                    
+                    FuncionarioDAO funDAO= new FuncionarioDAO(funVO);
+        
+                    ArrayList<FuncionarioVO>ListaFuncionario=funDAO.listarParaAprendiz(ficVO.getIdFicha());
+                    for (int i = 0; i < ListaFuncionario.size(); i++) {
+                        
+                        
+                        funVO= ListaFuncionario.get(i);  
+            
+                    %>
         <div class="container m-4">
             <div class="row">
                 <div class="col-sm-4">
@@ -70,30 +72,30 @@
                 </div>
             </div>
         </div>
-
-        <%}%>
-        <%}%>
+                        
+                    <%}%>
+                    <%}%>
         <!-- Modal Logout -->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelLogout"
-             aria-hidden="true">
+          <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelLogout"
+            aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabelLogout">Ohh No!</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Estas seguro que quieres cerrar sesiòn?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancelar</button>
-                        <a href="Sesiones" class="btn btn-primary">Salir</a>
-                    </div>
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabelLogout">Ohh No!</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
                 </div>
+                <div class="modal-body">
+                  <p>Estas seguro que quieres cerrar sesiòn?</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancelar</button>
+                  <a href="Sesiones" class="btn btn-primary">Salir</a>
+                </div>
+              </div>
             </div>
-        </div>            
+          </div>            
         <script src="Assets/vendor/jquery/jquery.min.js"></script>
         <script src="Assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="Assets/vendor/jquery-easing/jquery.easing.min.js"></script>

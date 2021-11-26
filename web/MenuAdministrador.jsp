@@ -51,6 +51,12 @@
                 </li>
 
                 <hr class="sidebar-divider">
+                
+                <li class="nav-item">
+                <a class="nav-link" href="Cargar_Informacion.jsp">
+                  <i class="fas fa-fw fa-tachometer-alt"></i>
+                  <span>Cargar Archivo</span></a>
+                </li>
 
 
 

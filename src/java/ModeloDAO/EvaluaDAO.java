@@ -28,13 +28,13 @@ public class EvaluaDAO extends Conexion{
         public EvaluaVO consultarAprendiz(String id){
     EvaluaVO evaVO= null;
         try {
-            System.out.println("1");
+            
             conexion= this.obtenerConexion();
-             System.out.println("2");
+             
             sql="SELECT `idAprendiz(FK)`, idAprendiz FROM evalua AS eva INNER JOIN aprendiz AS apren ON eva.`idAprendiz(FK)`=apren.idAprendiz WHERE idAprendiz=? ";
-             System.out.println("3");
+             
             puente= conexion.prepareStatement(sql);
-             System.out.println("4"+id);
+             
             puente.setString(1, id);
             mensajero= puente.executeQuery();
             while(mensajero.next()){

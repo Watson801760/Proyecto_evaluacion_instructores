@@ -10,15 +10,17 @@ package ModeloVO;
  * @author user
  */
 public class AprendizVO {
-    private String idAprendiz,nombre,apellido,correo,numIdentidad,urlFoto,idUsuarioFK;
+    
+     private String idAprendiz,nombre,apellido,correo,tipoDocumento,numIdentidad,urlFoto,idUsuarioFK;
     public AprendizVO() {
     }
 
-    public AprendizVO(String idAprendiz, String nombre, String apellido, String correo, String numIdentidad, String urlFoto, String idUsuarioFK) {
+    public AprendizVO(String idAprendiz, String nombre, String apellido, String correo, String tipoDocumento, String numIdentidad, String urlFoto, String idUsuarioFK) {
         this.idAprendiz = idAprendiz;
         this.nombre = nombre;
         this.apellido = apellido;
         this.correo = correo;
+        this.tipoDocumento = tipoDocumento;
         this.numIdentidad = numIdentidad;
         this.urlFoto = urlFoto;
         this.idUsuarioFK = idUsuarioFK;
@@ -56,6 +58,14 @@ public class AprendizVO {
         this.correo = correo;
     }
 
+    public String getTipoDocumento() {
+        return tipoDocumento;
+    }
+
+    public void setTipoDocumento(String tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
+    }
+
     public String getNumIdentidad() {
         return numIdentidad;
     }
@@ -79,5 +89,8 @@ public class AprendizVO {
     public void setIdUsuarioFK(String idUsuarioFK) {
         this.idUsuarioFK = idUsuarioFK;
     }
+   
+
+    
     
 }

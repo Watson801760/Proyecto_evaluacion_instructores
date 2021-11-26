@@ -60,19 +60,19 @@ public class ClasificacionDAO extends Conexion {
    public ClasificacionVO consultarClasificacion(String id){
     ClasificacionVO claVO= null;
         try {
-            System.out.println("1");
+       
             conexion= this.obtenerConexion();
-            System.out.println("2");
+           
             sql="select * from clasificacion where idClasificacion= ? ";
-            System.out.println("3"+ sql);
+       
             puente= conexion.prepareStatement(sql);
-             System.out.println("4"+ id);
+           
             puente.setString(1, id);
             mensajero= puente.executeQuery();
-            System.out.println("5");
+       
            
             while(mensajero.next()){
-                System.out.println("6");
+              
             
             claVO = new ClasificacionVO(mensajero.getString(1), mensajero.getString(2));
                         

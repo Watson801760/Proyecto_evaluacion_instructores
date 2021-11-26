@@ -58,8 +58,7 @@ public class ProgramacionControlador extends HttpServlet {
         Calendar fechaIniConv = Calendar.getInstance();
         Calendar fechaFinConv = Calendar.getInstance();
         
-        System.out.println("Fecha Ini :"+fechaInicio);
-        System.out.println("Fecha Fin :"+fechaFin);
+      
         
         
         if(fechaInicio != null && !"".equals(fechaInicio)){
@@ -70,8 +69,7 @@ public class ProgramacionControlador extends HttpServlet {
             String fechaFinSplit[] = fechaFin.split("-");
             fechaIniConv.set(Integer.parseInt(fechaFinSplit[0]), Integer.parseInt(fechaFinSplit[1]), Integer.parseInt(fechaFinSplit[2]));
         }
-        System.out.println("Fecha Ini Conv:"+fechaIniConv);
-        System.out.println("Fecha Fin Con:"+fechaFinConv);
+      
         
      
         ProgramacionVO proVO = new ProgramacionVO(idProgramacion, codigoAcceso, semestre, idEvaluacionFK, fechaIniConv.getTime(), fechaFinConv.getTime());

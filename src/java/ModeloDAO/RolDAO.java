@@ -27,23 +27,23 @@ public class RolDAO extends Conexion {
     
         public ArrayList<UsuarioVO> rol(String usuario) {
         ArrayList<UsuarioVO> listaRol = new ArrayList<>();
-        System.out.println("hola"+usuario);
+      
         try {
-            System.out.println("usuario"+usuario);
+           
             conexion = this.obtenerConexion();
             sql = "SELECT usuario.idUsuario, rol.nombreRol FROM rol INNER JOIN usuario ON rol.idRol = usuario.`idRol(FK)` WHERE usuario.nombreUsuario =?"; 
             puente = conexion.prepareStatement(sql);
             puente.setString(1, usuario);
             mensajero = puente.executeQuery();
-            System.out.println("usuario"+usuario);
+          
             
-            System.out.println("chao");
+          
             while (mensajero.next()) {
                 
                 UsuarioVO usuVO = new UsuarioVO(mensajero.getString(1), mensajero.getString(2));
                 listaRol.add(usuVO);
             }
-            System.out.println("shaw");
+           
         } catch (Exception e) {
             Logger.getLogger(UsuarioDAO.class.getName()).log(Level.SEVERE, null, e);
             System.err.println(e.toString());
