@@ -6,8 +6,12 @@
 package Controlador;
 
 import ModeloDAO.AprendizDAO;
+import ModeloDAO.EvaluaDAO;
+import ModeloDAO.FuncionarioDAO;
 import ModeloDAO.PreguntasDAO;
 import ModeloVO.AprendizVO;
+import ModeloVO.EvaluaVO;
+import ModeloVO.FuncionarioVO;
 import ModeloVO.PreguntasVO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author user
  */
-@WebServlet(name = "EvaluacionControlador", urlPatterns = {"/EvaluacionControlador"})
+@WebServlet(name = "EvaluacionControlador", urlPatterns = {"/Evaluacion"})
 public class EvaluacionControlador extends HttpServlet {
 
     /**
@@ -45,11 +49,20 @@ public class EvaluacionControlador extends HttpServlet {
         String idEvaluacionFK =request.getParameter("textEvaluacion");
         String valor = request.getParameter("sql");
         String id = request.getParameter("id");
+        String idPregentaFK = request.getParameter("textPreguntaFK");
+        String idFuncionarioFK = request.getParameter("textFuncionarioFK");
+        String idAprendizFK = request.getParameter("textAprendizFK");
+        String repuesta = request.getParameter("respuesta");
+        String idFuncionario = request.getParameter("textIdFun");
         
+        EvaluaVO evaVO = new EvaluaVO(idPregentaFK,idFuncionarioFK,idAprendizFK,repuesta);
+        EvaluaDAO evaDAO = new EvaluaDAO(evaVO);
         PreguntasVO preVO = new PreguntasVO(idPregunta,pregunta,respuestaFavorable,estado,idClasificacionFK,idEvaluacionFK);
         PreguntasDAO preDAO = new PreguntasDAO(preVO);
         AprendizVO aprenVO = new AprendizVO();
         AprendizDAO aprenDAO = new AprendizDAO(aprenVO);
+        FuncionarioVO funVO = new FuncionarioVO(idFuncionario);
+        FuncionarioDAO funDAO = new FuncionarioDAO(funVO);
         
         switch(opcion){
         
@@ -66,18 +79,26 @@ public class EvaluacionControlador extends HttpServlet {
                 
             case 2:
                 aprenVO = aprenDAO.consultarAprendiz_Por_Usuario(valor);
+                funVO = funDAO.consultarFuncionario(idFuncionario);
                 if(aprenVO != null){
-                    preVO = preDAO.consultarPregunta_2();
-                    if(preVO != null){
-                    request.setAttribute("Preguntas Consultadas", preVO);    
+                    
+                    request.setAttribute("Funcionario Consultado", funVO);
+                    request.setAttribute("Aprendiz Consultado", aprenVO);    
                     request.getRequestDispatcher("Evaluacion.jsp").forward(request, response);
-                    }else{
-                       request.getRequestDispatcher("Instructores.jsp").forward(request, response);
-                    }
+                    
                 }else{
                    request.getRequestDispatcher("Instructores.jsp").forward(request, response);
                 }
-        
+            case 3:
+              
+                  if(evaDAO.agregarRegistro()) {
+                    request.setAttribute("mensajeExito", "Se registro la evaluacion corretamente");
+                }else{
+                    request.setAttribute("mensajeError", "No se registro la evaluacion corretamente");
+                }
+                request.getRequestDispatcher("Crear_Aprendiz.jsp").forward(request, response);
+                break;
+                
         
         
         

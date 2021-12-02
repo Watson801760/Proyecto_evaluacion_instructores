@@ -38,6 +38,17 @@
     <body>
        
        <%
+            
+        
+            if (buscarSesion.getAttribute("datosUsuario") == null) {
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+
+            } else {
+
+                UsuarioVO usuVO = (UsuarioVO) buscarSesion.getAttribute("datosUsuario");
+                usuario = usuVO.getNombreUsuario();
+            }
+           
             FichaVO ficVO = (FichaVO) request.getAttribute("Ficha Consultada");
             
             FuncionarioVO funVO = new FuncionarioVO();
@@ -56,6 +67,7 @@
             <div class="row">
                 <div class="col-sm-4">
                     <div class="card">
+                        <form method="POST" action="Evaluacion">
                         <div class="card-header">
                             <h2><%=funVO.getNombre()%> <%=funVO.getApellido()%></h2>
                         </div>
@@ -64,10 +76,14 @@
                         </div>
                         <div class="card-footer">
                             <div>
-                                <a class="btn btn-danger">Evaluar</a>
+                                <button class="btn btn-warning">Evaluar</button>
+                                <input type="hidden" value="2" name="opcion">
+                                <input type="hidden" value="<%=funVO.getIdFuncionario()%>" name="textIdFun">
+                                <input type="hidden" value="<%=usuario%>" name="sql">
                             </div> 
-
-                        </div>        
+                        
+                        </div>  
+                        </form>
                     </div>
                 </div>
             </div>

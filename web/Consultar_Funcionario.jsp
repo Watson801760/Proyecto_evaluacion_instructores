@@ -135,7 +135,7 @@
                     FuncionarioVO funVO = new FuncionarioVO();
                     FuncionarioDAO funDAO= new FuncionarioDAO(funVO);
                     EvaluaVO evaVO = new EvaluaVO();
-                    EvaluaDAO evaDAO = new EvaluaDAO();
+                    EvaluaDAO evaDAO = new EvaluaDAO(evaVO);
                     ArrayList<FuncionarioVO>ListaFuncionario=funDAO.listar();
                     for (int i = 0; i < ListaFuncionario.size(); i++) {
                         

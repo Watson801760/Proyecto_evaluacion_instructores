@@ -10,11 +10,15 @@ package ModeloVO;
  * @author user
  */
 public class AprendizVO {
+
+    
     
      private String idAprendiz,nombre,apellido,correo,tipoDocumento,numIdentidad,urlFoto,idUsuarioFK;
     public AprendizVO() {
     }
-
+    public AprendizVO(String idAprendiz) {
+        this.idAprendiz = idAprendiz;
+    }
     public AprendizVO(String idAprendiz, String nombre, String apellido, String correo, String tipoDocumento, String numIdentidad, String urlFoto, String idUsuarioFK) {
         this.idAprendiz = idAprendiz;
         this.nombre = nombre;

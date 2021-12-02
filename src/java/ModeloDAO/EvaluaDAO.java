@@ -7,6 +7,7 @@ package ModeloDAO;
 
 import ModeloVO.EvaluaVO;
 import Util.Conexion;
+import Util.Crud;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,13 +20,62 @@ import java.util.logging.Logger;
  *
  * @author user
  */
-public class EvaluaDAO extends Conexion{
+public class EvaluaDAO extends Conexion implements Crud{
     private Connection conexion;
     private PreparedStatement puente;
     private ResultSet mensajero;
+     private boolean operacion= false;
     private String sql;
+    private String idPregentaFK="",idFuncionarioFK="",idAprendizFK="",repuesta="";
     
-        public EvaluaVO consultarAprendiz(String id){
+    
+    public EvaluaDAO (EvaluaVO evaVO){
+      super();
+        try {
+            conexion= this.obtenerConexion();
+            idPregentaFK=evaVO.getIdPregentaFK();
+            idFuncionarioFK=evaVO.getIdFuncionarioFK();
+            idAprendizFK=evaVO.getIdAprendizFK();
+            repuesta=evaVO.getRepuesta();
+            
+           } catch (Exception e) {
+            Logger.getLogger(AprendizDAO.class.getName()).log(Level.SEVERE, null, e);
+        } 
+    }
+ 
+
+    @Override
+    public boolean agregarRegistro() {
+      try {
+       
+            sql="insert into evalua (`idPregenta(FK)`,`idFuncionario(FK)`,`idAprendiz(FK)`,`respuesta`) values(?,?,?,?) ";
+       
+            puente= conexion.prepareStatement(sql);
+            puente.setString(1,idPregentaFK);
+            puente.setString(2,idFuncionarioFK);
+            puente.setString(3,idAprendizFK);
+            puente.setString(4,repuesta);
+            puente.executeUpdate();
+            this.operacion=true;
+            
+         
+        }catch (SQLException e) {
+            Logger.getLogger(EvaluaDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+       return operacion;
+    }
+
+    @Override
+    public boolean actualizarRegistro(String valor, String id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean eliminarRegistro(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+       
+           public EvaluaVO consultarAprendiz(String id){
     EvaluaVO evaVO= null;
         try {
             
@@ -75,6 +125,5 @@ public class EvaluaDAO extends Conexion{
             }
         }
         return evaVO;
-    }    
-    
+    }
 }
