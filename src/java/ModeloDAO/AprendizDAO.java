@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -34,7 +34,7 @@ public class AprendizDAO extends Conexion implements Crud{
     
     private boolean operacion= false;
     private String sql;
-    private String idAprendiz="",nombre="",apellido="",correo="",numIdentidad="",urlFoto="",idUsuarioFK="" ;
+    private String idAprendiz="",nombre="",apellido="",correo="",tipoDocumento="",numIdentidad="",urlFoto="",idUsuarioFK="" ;
     
     public AprendizDAO (AprendizVO aprenVO){
       super();
@@ -44,6 +44,7 @@ public class AprendizDAO extends Conexion implements Crud{
             nombre=aprenVO.getNombre();
             apellido=aprenVO.getApellido();
             correo=aprenVO.getCorreo();
+            tipoDocumento=aprenVO.getTipoDocumento();
             numIdentidad=aprenVO.getNumIdentidad();
             urlFoto=aprenVO.getUrlFoto();
             idUsuarioFK=aprenVO.getIdUsuarioFK();
@@ -122,7 +123,7 @@ public class AprendizDAO extends Conexion implements Crud{
             while(mensajero.next()){
             
                 AprendizVO aprenVO = new AprendizVO(mensajero.getString(1), mensajero.getString(2), mensajero.getString(3),
-                                                   mensajero.getString(4),mensajero.getString(5),mensajero.getString(6),mensajero.getString(7));
+                                                   mensajero.getString(4),mensajero.getString(5),mensajero.getString(6),mensajero.getString(7),mensajero.getString(8));
                 ListaAprendiz.add(aprenVO);
                         
             
@@ -154,7 +155,7 @@ public class AprendizDAO extends Conexion implements Crud{
             while(mensajero.next()){
             
                 aprenVO= new AprendizVO(mensajero.getString(1), mensajero.getString(2), mensajero.getString(3),
-                                        mensajero.getString(4),mensajero.getString(5),mensajero.getString(6),mensajero.getString(7));
+                                        mensajero.getString(4),mensajero.getString(5),mensajero.getString(6),mensajero.getString(7),mensajero.getString(8));
             }
             
         } catch (Exception e) {
@@ -183,7 +184,7 @@ public class AprendizDAO extends Conexion implements Crud{
             while(mensajero.next()){
             
                 AprenVO= new AprendizVO (mensajero.getString(1), mensajero.getString(2), mensajero.getString(3),
-                                        mensajero.getString(4),mensajero.getString(5),mensajero.getString(6),mensajero.getString(7));
+                                        mensajero.getString(4),mensajero.getString(5),mensajero.getString(6),mensajero.getString(7),mensajero.getString(8));
             }
             
         } catch (Exception e) {
@@ -213,7 +214,7 @@ public class AprendizDAO extends Conexion implements Crud{
             while(mensajero.next()){
             
                 AprendizVO aprenVO = new AprendizVO(mensajero.getString(1), mensajero.getString(2), mensajero.getString(3),
-                                                   mensajero.getString(4),mensajero.getString(5),mensajero.getString(6),mensajero.getString(7));
+                                                   mensajero.getString(4),mensajero.getString(5),mensajero.getString(6),mensajero.getString(7),mensajero.getString(8));
                 ListaAprendiz.add(aprenVO);
                         
             
@@ -233,6 +234,7 @@ public class AprendizDAO extends Conexion implements Crud{
     }
      
   public boolean Subir_Archivo (String archivo12) throws FileNotFoundException, IOException{
+      System.out.println("0" + archivo12);
       FileInputStream archivo = new FileInputStream(archivo12);
         System.out.println("1"+archivo);
         XSSFWorkbook libro = new XSSFWorkbook(archivo);
@@ -260,6 +262,7 @@ public class AprendizDAO extends Conexion implements Crud{
             System.out.println("10"+ (int) fila.getCell(5).getNumericCellValue());
             insertar.setInt(6, (int) fila.getCell(5).getNumericCellValue());
             insertar.executeUpdate();
+            this.operacion=true;
             } catch (Exception e) {
             Logger.getLogger(AprendizDAO.class.getName()).log(Level.SEVERE, null, e);
         }
@@ -280,6 +283,40 @@ public class AprendizDAO extends Conexion implements Crud{
         }*/
         return operacion;
     }
+  
+  public AprendizVO consultarAprendiz_Por_Usuario(String nombre2) {
+
+        AprendizVO aprenVO = null;
+        try {
+            System.out.println("consultado1");
+            conexion = this.obtenerConexion();
+            System.out.println("consultado2");
+            sql = "SELECT aprendiz.idAprendiz, aprendiz.nombre, aprendiz.apellido, aprendiz.correo, aprendiz.tipoDocumento, aprendiz.numIdentidad, aprendiz.urlFoto, aprendiz.`idUsuario(FK)` FROM aprendiz INNER JOIN usuario ON aprendiz.`idUsuario(FK)` = usuario.idUsuario WHERE usuario.nombreUsuario = ?";
+            System.out.println("consultado3");
+            puente = conexion.prepareStatement(sql);
+            System.out.println("consultado4"+nombre2);
+            puente.setString(1,nombre2);
+             System.out.println("consultado5");
+            mensajero = puente.executeQuery();
+            System.out.println("consultado6");
+            while (mensajero.next()) {
+
+                aprenVO = new AprendizVO(mensajero.getString(1),mensajero.getString(2),mensajero.getString(3),mensajero.getString(4),mensajero.getString(5),mensajero.getString(6),mensajero.getString(7),mensajero.getString(8));
+            }
+
+        } catch (Exception e) {
+            Logger.getLogger(AprendizDAO.class.getName()).log(Level.SEVERE, null, e);
+        }/*finally{    
+            try {
+                this.cerrarConexion();
+                
+            } catch (SQLException e) {
+                Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }*/
+        return aprenVO;
+    }
+
        
 }
 

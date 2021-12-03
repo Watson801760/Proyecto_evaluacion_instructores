@@ -10,8 +10,14 @@ package ModeloVO;
  * @author user
  */
 public class FuncionarioVO {
+
+    
     private String idFuncionario,nombre,apellido,correo,numIdentidad,urlFoto,idUsuarioFK,idCoordinacionFK;
     public FuncionarioVO() {
+    }
+    
+    public FuncionarioVO(String idFuncionario) {
+        this.idFuncionario = idFuncionario;
     }
 
     public FuncionarioVO(String idFuncionario, String nombre, String apellido, String correo, String numIdentidad, String urlFoto, String idUsuarioFK, String idCoordinacionFK) {
@@ -24,6 +30,7 @@ public class FuncionarioVO {
         this.idUsuarioFK = idUsuarioFK;
         this.idCoordinacionFK = idCoordinacionFK;
     }
+    
 
     public String getIdFuncionario() {
         return idFuncionario;

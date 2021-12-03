@@ -45,6 +45,7 @@ public class FuncionarioControlador extends HttpServlet {
         String idCoordinacionFK =request.getParameter("textCoFK");
         String valor = request.getParameter("sql");
         String id = request.getParameter("id");
+        String ruta = "C:\\Users\\user\\OneDrive\\Documentos\\Excel\\";
         
         FuncionarioVO funVO = new FuncionarioVO(idFuncionario,nombre,apellido,correo,numIdentidad,urlFoto,idUsuarioFK,idCoordinacionFK);
         FuncionarioDAO funDAO = new FuncionarioDAO(funVO);
@@ -114,7 +115,28 @@ public class FuncionarioControlador extends HttpServlet {
                 }
                 request.getRequestDispatcher("Actualizar_Instructor.jsp").forward(request, response);
                 break; 
+                
+            case 7:  
+                   System.out.println("inicia subir archivo");
+                   System.out.println("inicia subir archivo"+ valor);
+                   boolean fff = funDAO.Subir_Archivo(ruta+valor);
+                   System.out.println("boleano" + fff);
+                if ( fff == true) { 
+                    System.out.println("pasa" );
+                    request.setAttribute("mensajeExito", "se subioi archivo");
+                     System.out.println("y se subio el archivo" );
+                }else{
+                    System.out.println("no paso paila" );
+                    request.setAttribute("mensajeError", "No se encontro el archivo ");
+                    System.out.println("no paso paila2" );
+                   
+                   
+                }
+                request.getRequestDispatcher("Consultar_funcionario.jsp").forward(request, response);
+                break;  
         }
+        
+           
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

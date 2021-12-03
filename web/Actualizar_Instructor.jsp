@@ -38,11 +38,7 @@
                 <button class="btn btn-warning" >Actualizar</button>
                 <input type="hidden" value="6" name="opcion">
                 <input  type="hidden" name="id" value="<%= funVO.getIdFuncionario() %>"><br>
-                </form>
-                
-
-
-
+                </form>              
             <% }%>       
 
             <%if (request.getAttribute("mensajeError") == null) {%>

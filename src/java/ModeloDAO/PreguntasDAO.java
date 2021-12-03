@@ -48,13 +48,13 @@ public class PreguntasDAO extends Conexion implements Crud{
     @Override
     public boolean agregarRegistro() {
          try {
-             System.out.println("se prepa la conexion");
+            
             sql="insert into pregunta (`pregunta`,`idClasificacion(FK)`) values(?,?) ";
-             System.out.println("se entra el registro");
+             
             puente= conexion.prepareStatement(sql);
-            System.out.println("1:"+ pregunta);
+           
             puente.setString(1,pregunta);
-            System.out.println("2:"+ idClasificacion);
+         
             puente.setString(2,idClasificacion);
           
             puente.executeUpdate();
@@ -188,6 +188,34 @@ public class PreguntasDAO extends Conexion implements Crud{
                                         mensajero.getString(4),mensajero.getString(5),mensajero.getString(6));
             }
             
+            
+        } catch (Exception e) {
+            Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);
+        }/*finally{    
+            try {
+                this.cerrarConexion();
+                
+            } catch (SQLException e) {
+                Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }*/
+        return preVO;
+    }
+  
+   public PreguntasVO consultarPregunta_2(){
+    
+    PreguntasVO preVO= null;
+        try {
+            conexion = this.obtenerConexion();
+            sql="select * from pregunta ";
+            puente= conexion.prepareStatement(sql);
+            mensajero= puente.executeQuery();
+            
+            while(mensajero.next()){
+            
+                preVO = new PreguntasVO(mensajero.getString(1), mensajero.getString(2), mensajero.getString(3),
+                                        mensajero.getString(4),mensajero.getString(5),mensajero.getString(6));
+            }
             
         } catch (Exception e) {
             Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);

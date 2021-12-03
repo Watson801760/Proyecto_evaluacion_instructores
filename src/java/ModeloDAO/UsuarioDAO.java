@@ -116,17 +116,17 @@ public class UsuarioDAO extends Conexion implements Crud {
 
         UsuarioVO usuVO = null;
         try {
-            System.out.println("conexion");
+            
             conexion = this.obtenerConexion();
-            System.out.println("obtiene la conexion");
+           
             sql = "SELECT salon.`idFicha(FK)` FROM salon LEFT JOIN usuario ON salon.`idUsuario(FK)` = usuario.idUsuario LEFT JOIN aprendiz ON usuario.idUsuario = aprendiz.`idUsuario(FK)` WHERE usuario.nombreUsuario = ?";
-            System.out.println("habre consulta");
+        
             puente = conexion.prepareStatement(sql);
-            System.out.println("nombre usuario" + nombre);
+            
             puente.setString(1, nombre);
-            System.out.println("se rcogen los datos");
+            
             mensajero = puente.executeQuery();
-            System.out.println("se ejecuta la conexion");
+           
             while (mensajero.next()) {
 
                 usuVO = new UsuarioVO(mensajero.getString(1));
@@ -147,19 +147,19 @@ public class UsuarioDAO extends Conexion implements Crud {
 
     public ArrayList<UsuarioVO> listarParaAprendiz(String ficha2) {
         ArrayList<UsuarioVO> listarFicha = new ArrayList<>();
-        System.out.println("1");
+       
         try {
-            System.out.println("2" + obtenerConexion());
+            
             conexion = this.obtenerConexion();
-            System.out.println("3");
+         
             sql = "SELECT funcionario.nombre, funcionario.apellido FROM funcionario INNER JOIN usuario ON funcionario.`idUsuario(FK)` = usuario.idUsuario INNER JOIN salon ON usuario.idUsuario = salon.`idUsuario(FK)` WHERE salon.`idFicha(FK)` =?";
-            System.out.println("4");
+         
             puente = conexion.prepareStatement(sql);
-            System.out.println("5" + ficha2);
+       
             puente.setString(1, ficha2);
-            System.out.println("6");
+          
             mensajero = puente.executeQuery();
-            System.out.println("7");
+            
             while (mensajero.next()) {
 
                 UsuarioVO usuVO = new UsuarioVO(mensajero.getString(1), mensajero.getString(2));
