@@ -37,7 +37,7 @@ public class Sesiones extends HttpServlet {
         buscarSesion.removeAttribute("datosUsuario");
         buscarSesion.removeAttribute("rol");
         buscarSesion.invalidate();
-        request.getRequestDispatcher("InicioDeSesion.jsp").forward(request, response);
+        request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

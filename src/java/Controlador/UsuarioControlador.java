@@ -74,7 +74,7 @@ public class UsuarioControlador extends HttpServlet {
                 }
                 request.getRequestDispatcher("").forward(request, response);
                 break;
-            case 3://inicio de sesion    
+              case 3://inicio de sesion    
          
                 String usuId = "";
              

@@ -213,9 +213,9 @@
                         </a>
                         <div class="dropdown-divider"></div>
                         <form method="POST" action="Sesiones">
-                            <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#logoutModal">
+                            <a class="dropdown-item" href="login.jsp" data-toggle="modal" data-target="#logoutModal">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                <input type="submit" value="cerrar Sesion">
+                                <input type="submit" value="Cerrar Sesion">
                             </a>
                         </form>  
                     </div>
