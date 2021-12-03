@@ -284,24 +284,24 @@ public class AprendizDAO extends Conexion implements Crud{
         return operacion;
     }
   
-  public AprendizVO consultarAprendiz_Por_Usuario(String nombre) {
+  public AprendizVO consultarAprendiz_Por_Usuario(String nombre2) {
 
         AprendizVO aprenVO = null;
         try {
-            
+            System.out.println("consultado1");
             conexion = this.obtenerConexion();
-           
+            System.out.println("consultado2");
             sql = "SELECT aprendiz.idAprendiz, aprendiz.nombre, aprendiz.apellido, aprendiz.correo, aprendiz.tipoDocumento, aprendiz.numIdentidad, aprendiz.urlFoto, aprendiz.`idUsuario(FK)` FROM aprendiz INNER JOIN usuario ON aprendiz.`idUsuario(FK)` = usuario.idUsuario WHERE usuario.nombreUsuario = ?";
-        
+            System.out.println("consultado3");
             puente = conexion.prepareStatement(sql);
-            
-            puente.setString(1, nombre);
-            
+            System.out.println("consultado4"+nombre2);
+            puente.setString(1,nombre2);
+             System.out.println("consultado5");
             mensajero = puente.executeQuery();
-           
+            System.out.println("consultado6");
             while (mensajero.next()) {
 
-                aprenVO = new AprendizVO(idAprendiz, nombre, apellido, correo, idAprendiz, numIdentidad, urlFoto, idUsuarioFK);
+                aprenVO = new AprendizVO(mensajero.getString(1),mensajero.getString(2),mensajero.getString(3),mensajero.getString(4),mensajero.getString(5),mensajero.getString(6),mensajero.getString(7),mensajero.getString(8));
             }
 
         } catch (Exception e) {
@@ -316,6 +316,7 @@ public class AprendizDAO extends Conexion implements Crud{
         }*/
         return aprenVO;
     }
+
        
 }
 

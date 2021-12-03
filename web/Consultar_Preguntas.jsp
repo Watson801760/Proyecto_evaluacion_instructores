@@ -169,8 +169,9 @@
                     <%}%>
                     </tbody>
                   </table>
-                    <a class="btn btn-success" class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#registrarPregunta" >Registrar</a>
+                    
                 </div>
+                    <a class="btn btn-success" class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#registrarPregunta" >Registrar</a>
               </div>
             </div>
           </div>

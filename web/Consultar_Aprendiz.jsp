@@ -134,17 +134,14 @@
                     AprendizVO aprenVO = new AprendizVO();
                     AprendizDAO aprenDAO= new AprendizDAO(aprenVO);
                     EvaluaVO evaVO = new EvaluaVO();
-                    EvaluaDAO evaDAO = new EvaluaDAO();
+                    EvaluaDAO evaDAO = new EvaluaDAO(evaVO);
                     ArrayList<AprendizVO>ListaAprendiz=aprenDAO.listar();
                     for (int i = 0; i < ListaAprendiz.size(); i++) {
                         
                         
+                    
+                      
                     aprenVO= ListaAprendiz.get(i);
-                      if(evaDAO.consultarAprendiz(aprenVO.getIdAprendiz())!=null){
-                            request.setAttribute("mensajeExito", "Ha realizado la evaluación");
-                        }else{
-                            request.setAttribute("mensajeError", "No ha realizado la evaluación");
-                        }      
                             
             
                     %>
@@ -171,8 +168,9 @@
                     <%}%>
                     </tbody>
                   </table>
-                    <a  class="btn btn-success" class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#registrarAprendiz">Registrar</a>
+                   
                 </div>
+                     <a  class="btn btn-success" class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#registrarAprendiz">Registrar</a>
               </div>
             </div>
           </div>

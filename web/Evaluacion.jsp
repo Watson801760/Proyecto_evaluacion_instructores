@@ -51,17 +51,45 @@
         <div class="container-fluid">           
             <p><%=preVO.getPregunta()%></p>
                 <div id="drink-holder">
-                    <select size="6" class="display:inline-block" >
-                    <option value="1">Siempre</option>
+                    <select id="Respuesta1" size="6" class="" name="respuesta" >
+                    <option value="3">Siempre</option>
                     <option value="2">Casi siempre</option>
-                    <option value="3">Nunca</option>
+                    <option value="1">Nunca</option>
                     </select>
                 </div>
+                <div>
+                    <button class="btn btn-warning">Enviar</button>
+                    <input type="hidden" value="3" name="opcion">
+                    <input type="hidden" value="<%=funVO.getIdFuncionario()%>" name="textFuncionarioFK">
+                    <input type="hidden" value="<%=aprenVO.getIdAprendiz()%>" name="textAprendizFK">
+                    <input type="hidden" value="<%=preVO.getIdPregunta()%>" name="textPreguntaFK">
+                </div>
+                
         </div>
         <%}%>
         
         <%}%>
         </form>
+      <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelLogout"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabelLogout">Ohh No!</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p>Estas seguro que quieres cerrar sesiòn?</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancelar</button>
+                  <a href="Sesiones" class="btn btn-primary">Salir</a>
+                </div>
+              </div>
+            </div>
+          </div>   
     <script src="Assets/vendor/jquery/jquery.min.js"></script>
     <script src="Assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="Assets/vendor/jquery-easing/jquery.easing.min.js"></script>

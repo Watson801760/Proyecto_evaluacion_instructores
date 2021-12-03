@@ -78,6 +78,7 @@ public class EvaluacionControlador extends HttpServlet {
                 break;    
                 
             case 2:
+                System.out.println("aprendiz" + valor);
                 aprenVO = aprenDAO.consultarAprendiz_Por_Usuario(valor);
                 funVO = funDAO.consultarFuncionario(idFuncionario);
                 if(aprenVO != null){
@@ -90,13 +91,17 @@ public class EvaluacionControlador extends HttpServlet {
                    request.getRequestDispatcher("Instructores.jsp").forward(request, response);
                 }
             case 3:
-              
+                System.out.println("agerga registro" + repuesta);
+                System.out.println("agerga registro" + idPregentaFK);
+                System.out.println("agerga registro" + idFuncionarioFK);
+                System.out.println("agerga registro" + idAprendizFK);
                   if(evaDAO.agregarRegistro()) {
+                      System.out.println("hizo el registro");
                     request.setAttribute("mensajeExito", "Se registro la evaluacion corretamente");
                 }else{
                     request.setAttribute("mensajeError", "No se registro la evaluacion corretamente");
                 }
-                request.getRequestDispatcher("Crear_Aprendiz.jsp").forward(request, response);
+                request.getRequestDispatcher("Evaluacion.jsp").forward(request, response);
                 break;
                 
         

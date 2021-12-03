@@ -175,8 +175,9 @@
                     <%}%>
                     </tbody>
                   </table>
-                    <a class="btn btn-success" class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#registrarFuncionario" href="Crear_Funcionario.jsp">Registrar</a>
+                    
                 </div>
+                    <a class="btn btn-success" class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#registrarFuncionario" href="Crear_Funcionario.jsp">Registrar</a>
               </div>
             </div>
           </div>

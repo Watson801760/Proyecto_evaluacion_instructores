@@ -45,7 +45,7 @@
 
             } else {
 
-                UsuarioVO usuVO = (UsuarioVO) buscarSesion.getAttribute("datosUsuario");
+                UsuarioVO usuVO =(UsuarioVO) buscarSesion.getAttribute("datosUsuario");
                 usuario = usuVO.getNombreUsuario();
             }
            
