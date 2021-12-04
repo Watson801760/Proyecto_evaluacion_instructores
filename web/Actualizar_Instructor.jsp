@@ -1,4 +1,4 @@
-<%-- 
+ 
     Document   : Actualizar_Preguntas
     Created on : 01-ago-2021, 18:50:52
     Author     : user
@@ -25,8 +25,6 @@
             <%
                 FuncionarioVO funVO = (FuncionarioVO) request.getAttribute("Instructor Consultado");
                 if (funVO != null) {
-
-
             %>  
                 <form method="POST" action="Funcionario"  enctype="multipart/form-data">
                 Nombre<br>
@@ -40,11 +38,7 @@
                 <button class="btn btn-warning" >Actualizar</button>
                 <input type="hidden" value="6" name="opcion">
                 <input  type="hidden" name="id" value="<%= funVO.getIdFuncionario() %>"><br>
-                </form>
-                
-
-
-
+                </form>              
             <% }%>       
 
             <%if (request.getAttribute("mensajeError") == null) {%>
