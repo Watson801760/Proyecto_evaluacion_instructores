@@ -109,7 +109,7 @@ public class FuncionarioControlador extends HttpServlet {
             case 6:
                 boolean aa = funDAO.actualizarFuncionario(valor, id);
                 if (aa == true) {
-                    request.setAttribute("mensajeExito", "El Instructor se actualizo ");
+                    request.setAttribute("mensajeExito", "El Instructor se actualizo");
                 }else{
                     request.setAttribute("mensajeError", "El Instructor no se pudo actualizar");
                 }
@@ -117,22 +117,21 @@ public class FuncionarioControlador extends HttpServlet {
                 break; 
                 
             case 7:  
-                   System.out.println("inicia subir archivo");
-                   System.out.println("inicia subir archivo"+ valor);
+                  
                    boolean fff = funDAO.Subir_Archivo(ruta+valor);
-                   System.out.println("boleano" + fff);
+                  
                 if ( fff == true) { 
-                    System.out.println("pasa" );
+                  
                     request.setAttribute("mensajeExito", "se subioi archivo");
-                     System.out.println("y se subio el archivo" );
+                     
                 }else{
-                    System.out.println("no paso paila" );
+                    
                     request.setAttribute("mensajeError", "No se encontro el archivo ");
-                    System.out.println("no paso paila2" );
+                    
                    
                    
                 }
-                request.getRequestDispatcher("Consultar_funcionario.jsp").forward(request, response);
+                request.getRequestDispatcher("Consultar_Funcionario.jsp").forward(request, response);
                 break;  
         }
         

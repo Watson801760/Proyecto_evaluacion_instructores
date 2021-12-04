@@ -102,6 +102,9 @@ public class UsuarioControlador extends HttpServlet {
                      
                         request.getRequestDispatcher("MenuAdministrador.jsp").forward(request, response);
                 
+                    }else if(usuVO.getIdRolFK().equals("Coordinador")){
+                    
+                        request.getRequestDispatcher("MenuCoordinador.jsp").forward(request, response);
                     } else if (usuVO.getIdRolFK().equals("Aprendiz")) {
                         
                         ficVO = ficDAO.consultarAprendiz_Ficha(nombreUsuario);   

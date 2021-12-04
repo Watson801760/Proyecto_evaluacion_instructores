@@ -316,7 +316,39 @@ public class AprendizDAO extends Conexion implements Crud{
         }*/
         return aprenVO;
     }
+    public AprendizVO consultarAprendiz_Evalua(String id) {
 
+        AprendizVO aprenVO = null;
+        try {
+            System.out.println("EvaluaFuncionario"+conexion);
+            conexion = this.obtenerConexion();
+            System.out.println("EvaluaFuncionario la" + sql);
+            sql = "SELECT evalua.`idAprendiz(FK)` FROM `evalua` INNER JOIN `aprendiz` ON evalua.`idAprendiz(FK)` = aprendiz.idAprendiz WHERE `idAprendiz` = ?";
+            System.out.println("EvaluaFuncionario pasa la consulta");
+            puente = conexion.prepareStatement(sql);
+            System.out.println("EvaluaFuncionario"+ id);
+            puente.setString(1, id);
+            mensajero = puente.executeQuery();
+
+            while (mensajero.next()) {
+
+                aprenVO = new AprendizVO(mensajero.getString(1), mensajero.getString(2), mensajero.getString(3),
+                        mensajero.getString(4), mensajero.getString(5), mensajero.getString(6), mensajero.getString(7),
+                        mensajero.getString(8));
+            }
+
+        } catch (Exception e) {
+            Logger.getLogger(AprendizDAO.class.getName()).log(Level.SEVERE, null, e);
+        }/*finally{    
+            try {
+                this.cerrarConexion();
+                
+            } catch (SQLException e) {
+                Logger.getLogger(PreguntasDAO.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }*/
+        return aprenVO;
+    }
        
 }
 

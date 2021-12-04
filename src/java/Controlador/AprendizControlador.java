@@ -88,7 +88,7 @@ public class AprendizControlador extends HttpServlet {
                 }else{
                     request.setAttribute("mensajeError", "El aprendiz no se pudo actualizar");
                 }
-                request.getRequestDispatcher("Actualizar_Preguntas.jsp").forward(request, response);
+                request.getRequestDispatcher("Actualizar_Aprendiz.jsp").forward(request, response);
                 break; 
                 
             case 4:
@@ -112,18 +112,17 @@ public class AprendizControlador extends HttpServlet {
                 }
                 
             case 6:  
-                   System.out.println("inicia subir archivo");
-                   System.out.println("inicia subir archivo"+ valor);
+              
                    boolean fff = aprenDAO.Subir_Archivo(ruta+valor);
-                   System.out.println("boleano" + fff);
+                
                 if ( fff == true) { 
-                    System.out.println("pasa" );
+                   
                     request.setAttribute("mensajeExito", "se subioi archivo");
-                     System.out.println("y se subio el archivo" );
+                    
                 }else{
-                    System.out.println("no paso paila" );
+                    
                     request.setAttribute("mensajeError", "No se encontro el archivo ");
-                    System.out.println("no paso paila2" );
+             
                  
                 }
                 request.getRequestDispatcher("Consultar_Aprendiz.jsp").forward(request, response);

@@ -141,8 +141,8 @@
                         
                         
                             funVO= ListaFuncionario.get(i);
-                        if(evaDAO.consultarAprendiz(funVO.getIdFuncionario())!=null){
-                         request.setAttribute("mensajeExito", "No ha sido evaluado");
+                        if(funDAO.consultarFuncionario_Evalua(funVO.getIdFuncionario())!=null){
+                         request.setAttribute("mensajeExito", "Ha sido evaluado");
                     
                                 
                        }else{
@@ -156,12 +156,16 @@
                         <td class="text-center" ><%=funVO.getApellido() %></td>
                         <td class="text-center" ><%=funVO.getCorreo() %></td>
                         <td class="text-center" ><%=funVO.getNumIdentidad() %></td>
-                        <td class="text-center" ><%if (request.getAttribute("mensajeError") == null) {%>
+                        <td class="text-center" ><% if(true) {%>
+                            
                                                 <form method="POST" action="GenerarPDFParametrizado.jsp" target="_blank">
+                                                <input type="hidden"  value="<%=funVO.getNombre()%>" name="nombre">
                                                 <input type="submit" value="Generar reporte">
-                                                <input type="hidden" value="ReporteParametrizado.jasper">
+                                                
+                                                <input type="hidden" value="ReporteParametrizado.jasper" name="nombreReporte">
                                                 </form>
-                                                <% } else if (request.getAttribute("mensajeExito") == null) {%>
+                                                
+                                                <% } else if (request.getAttribute("mensajeError") == null) {%>
                                                 <div style="color:red;">${mensajeError}</div>
                                                 <%}%></td>
                         <td class="text-center" >

@@ -7,10 +7,12 @@ package Controlador;
 
 import ModeloDAO.AprendizDAO;
 import ModeloDAO.EvaluaDAO;
+import ModeloDAO.FichaDAO;
 import ModeloDAO.FuncionarioDAO;
 import ModeloDAO.PreguntasDAO;
 import ModeloVO.AprendizVO;
 import ModeloVO.EvaluaVO;
+import ModeloVO.FichaVO;
 import ModeloVO.FuncionarioVO;
 import ModeloVO.PreguntasVO;
 import java.io.IOException;
@@ -63,7 +65,9 @@ public class EvaluacionControlador extends HttpServlet {
         AprendizDAO aprenDAO = new AprendizDAO(aprenVO);
         FuncionarioVO funVO = new FuncionarioVO(idFuncionario);
         FuncionarioDAO funDAO = new FuncionarioDAO(funVO);
-        
+        FichaVO ficVO= new FichaVO();
+        FichaDAO ficDAO = new FichaDAO(ficVO);
+
         switch(opcion){
         
             case 1:
@@ -103,12 +107,20 @@ public class EvaluacionControlador extends HttpServlet {
                 }
                 request.getRequestDispatcher("Evaluacion.jsp").forward(request, response);
                 break;
-                
-        
-        
-        
-        }
-        
+             case 4:    
+                ficVO = ficDAO.consultarAprendiz_Ficha(valor);   
+                if(ficVO!= null){
+
+                request.setAttribute("Ficha Consultada", ficVO);
+                request.getRequestDispatcher("Instructores.jsp").forward(request, response);
+
+                }else{
+                request.setAttribute("mensajeError", "No se encontraron fichas para el usuario ");
+                request.getRequestDispatcher("Evaluacion.jsp").forward(request, response);
+                }
+                 break;
+    
+        }        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -151,3 +163,7 @@ public class EvaluacionControlador extends HttpServlet {
     }// </editor-fold>
 
 }
+
+    
+
+

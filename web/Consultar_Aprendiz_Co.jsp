@@ -1,6 +1,6 @@
 <%-- 
-    Document   : Consultar_Aprendiz
-    Created on : 28-ago-2021, 20:25:35
+    Document   : Consultar_Aprendiz_Co
+    Created on : 03-dic-2021, 19:28:48
     Author     : user
 --%>
 
@@ -41,7 +41,7 @@
       </a>
       <hr class="sidebar-divider my-0">
       <li class="nav-item">
-        <a class="nav-link" href="MenuAdministrador.jsp">
+        <a class="nav-link" href="MenuCoordinador.jsp">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Tablero</span></a>
       </li>
@@ -56,19 +56,15 @@
         <div id="collapseTable" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Tablas</h6>
-            <a class="collapse-item" href="Consultar_Aprendiz.jsp">Aprendices</a>
-            <a class="collapse-item" href="Consultar_Funcionario.jsp">Funcionarios</a>
-            <a class="collapse-item" href="Consultar_Preguntas.jsp">Crear Preguntas</a>
+            <a class="collapse-item" href="Consultar_Aprendiz_Co.jsp">Aprendices</a>
+            <a class="collapse-item" href="Consultar_Funcionario_Co.jsp">Funcionarios</a>
+     
           </div>
         </div>
       </li>
      
       <hr class="sidebar-divider">
-      <li class="nav-item">
-        <a class="nav-link" href="Cargar_Informacion.jsp">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Cargar Archivo</span></a>
-      </li>
+    
    
     </ul>
     <!-- Sidebar -->
@@ -98,15 +94,7 @@
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary">Aprendices</h6>
                 </div>
-                  <form  class="modal-body" method="POST" action="Aprendiz">
-                  <div class="custom-file">
-                        
-                        <input type="file" name="sql" >
-                        <input type="submit" value="cargar"  name="sql">
-                        
-                        <input class="form-control" type="hidden" value="6" name="opcion">
-                      </div>
-                  </form>   
+                    
                 <div class="table-responsive p-3">
                   <table class="table align-items-center table-flush table-hover" id="dataTable">
                     <thead class="thead-light">

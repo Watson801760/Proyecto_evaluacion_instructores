@@ -28,7 +28,18 @@
         <link href="Assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     </head>
     <body>
+        
+        
          <%
+             
+             if (buscarSesion.getAttribute("datosUsuario") == null) {
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+
+            } else {
+
+                UsuarioVO usuVO =(UsuarioVO) buscarSesion.getAttribute("datosUsuario");
+                usuario = usuVO.getNombreUsuario();
+            }
             FuncionarioVO funVO = (FuncionarioVO) request.getAttribute("Funcionario Consultado");
             AprendizVO aprenVO = (AprendizVO) request.getAttribute("Aprendiz Consultado");
             if (funVO != null && aprenVO != null) {
@@ -47,8 +58,9 @@
                         preVO= ListaFuncionario.get(i);  
             
                     %>
-        <form method="POST" action="Evaluacion">  
-        <div class="container-fluid">           
+        <div class="container-fluid"> 
+         <form method="POST" action="Evaluacion">  
+                  
             <p><%=preVO.getPregunta()%></p>
                 <div id="drink-holder">
                     <select id="Respuesta1" size="6" class="" name="respuesta" >
@@ -63,13 +75,20 @@
                     <input type="hidden" value="<%=funVO.getIdFuncionario()%>" name="textFuncionarioFK">
                     <input type="hidden" value="<%=aprenVO.getIdAprendiz()%>" name="textAprendizFK">
                     <input type="hidden" value="<%=preVO.getIdPregunta()%>" name="textPreguntaFK">
-                </div>
+                    
+                </div><br><br>
                 
-        </div>
+
         <%}%>
         
         <%}%>
         </form>
+        <form method="POST" action="Evaluacion"> 
+        <button class="btn btn-warning">Volver</button>
+        <input type="hidden" value="<%=usuario%>" name="sql">
+        <input type="hidden" value="4" name="opcion">
+        </form>
+      </div>  
       <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelLogout"
             aria-hidden="true">
             <div class="modal-dialog" role="document">

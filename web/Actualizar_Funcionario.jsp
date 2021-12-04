@@ -14,26 +14,17 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">        
         <title>Tevalúo</title>
-        <link href="Assets/css/Style_Funcionario.css" rel="stylesheet" type="text/css"/>
+        <link href="Assets/css/bootstrap.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <nav>
+        <div class="container">
             <%
-                FuncionarioVO funVO = (FuncionarioVO) request.getAttribute("");
+                FuncionarioVO funVO = (FuncionarioVO) request.getAttribute("Funcionario Consultado");
                 if (funVO != null) {
             %>  
             <form method="POST" action="Funcionario">
                 <h1>Actualizar Funcionario</h1>
-                Nombre<br>
-                <input type="text" placeholder="textNombre" class="form-control" value="<%= funVO.getNombre()%>"><br>
-                Apellido<br>
-                <input class="form-control" type="text" name="textApellido" value="<%= funVO.getApellido()%>"><br> 
-                Correo<br>
-                <input class="form-control" type="text" name="textCorreo" value="<%= funVO.getCorreo()%>"><br>  
-                NumeroIdentidad<br>
-                <input class="form-control" type="text" name="textIdentidad" value="<%= funVO.getNumIdentidad()%>"><br>  
-                <button class="btn btn-warning">Actualizar</button>
-                <form method="POST" action="Funcionario">
+               
                     Nombre<br>
                     <input class="form-control" type="text" name="sql" value="<%= funVO.getNombre()%>"><br>
                     Apellido<br>
@@ -59,7 +50,7 @@
                     <input type="hidden" name="id" value="<%= funVO.getIdFuncionario()%>"><br>                    
                 </form>
             </form>                
-        </nav>
+        
         <% }%>       
 
         <%if (request.getAttribute("mensajeError") == null) {%>
@@ -68,5 +59,6 @@
         <div style="color:red;">${mensajeError}</div>
         <%}%>
         <a class="btn btn-success" href="Consultar_Funcionario.jsp">Volver</a>
+    </div>
     </body>
 </html>

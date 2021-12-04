@@ -1,11 +1,11 @@
 <%-- 
-    Document   : Consultar_Aprendiz
-    Created on : 28-ago-2021, 20:25:35
+    Document   : Consultar_Funcionario_Co
+    Created on : 03-dic-2021, 19:45:05
     Author     : user
 --%>
 
-<%@page import="ModeloDAO.AprendizDAO"%>
-<%@page import="ModeloVO.AprendizVO"%>
+<%@page import="ModeloVO.CoordinacionVO"%>
+<%@page import="ModeloDAO.CoordinacionDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="ModeloDAO.EvaluaDAO"%>
 <%@page import="ModeloVO.EvaluaVO"%>
@@ -41,13 +41,14 @@
       </a>
       <hr class="sidebar-divider my-0">
       <li class="nav-item">
-        <a class="nav-link" href="MenuAdministrador.jsp">
+        <a class="nav-link" href="MenuCoordinador.jsp">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Tablero</span></a>
       </li>
       <hr class="sidebar-divider">
-     
-       <li class="nav-item">
+   
+ 
+      <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true"
           aria-controls="collapseTable">
           <i class="fas fa-fw fa-table"></i>
@@ -56,20 +57,16 @@
         <div id="collapseTable" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Tablas</h6>
-            <a class="collapse-item" href="Consultar_Aprendiz.jsp">Aprendices</a>
-            <a class="collapse-item" href="Consultar_Funcionario.jsp">Funcionarios</a>
-            <a class="collapse-item" href="Consultar_Preguntas.jsp">Crear Preguntas</a>
+            <a class="collapse-item" href="Consultar_Aprendiz_Co.jsp">Aprendices</a>
+            <a class="collapse-item" href="Consultar_Funcionario_Co.jsp">Funcionarios</a>
+            
           </div>
         </div>
       </li>
-     
+    
       <hr class="sidebar-divider">
-      <li class="nav-item">
-        <a class="nav-link" href="Cargar_Informacion.jsp">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Cargar Archivo</span></a>
-      </li>
-   
+      
+      
     </ul>
     <!-- Sidebar -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -80,7 +77,7 @@
         <!-- Container Fluid-->
         <div class="container-fluid" id="container-wrapper">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Aprendices</h1>
+            <h1 class="h3 mb-0 text-gray-800">Funcionarios</h1>
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="./">Home</a></li>
               <li class="breadcrumb-item">Tables</li>
@@ -96,17 +93,9 @@
             <div class="col-lg-12">
               <div class="card mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Aprendices</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Instructores</h6>
                 </div>
-                  <form  class="modal-body" method="POST" action="Aprendiz">
-                  <div class="custom-file">
-                        
-                        <input type="file" name="sql" >
-                        <input type="submit" value="cargar"  name="sql">
-                        
-                        <input class="form-control" type="hidden" value="6" name="opcion">
-                      </div>
-                  </form>   
+                    
                 <div class="table-responsive p-3">
                   <table class="table align-items-center table-flush table-hover" id="dataTable">
                     <thead class="thead-light">
@@ -114,7 +103,6 @@
                         <th class="text-center">Nombre</th>
                         <th class="text-center" >Apellido</th>
                         <th class="text-center" >Correo</th>
-                        <th class="text-center" >Tipo</th>
                         <th class="text-center" >numIdentidad</th>
                         <th class="text-center" >Evaluaciòn</th>
                         <th class="text-center" ></th>
@@ -123,7 +111,6 @@
                     <tfoot>
                       <tr>
                         <th class="text-center">Nombre</th>
-                        <th class="text-center" >Tipo</th>
                         <th class="text-center" >Apellido</th>
                         <th class="text-center" >Correo</th>
                         <th class="text-center" >numIdentidad</th>
@@ -132,63 +119,66 @@
                       </tr>
                     </tfoot>
                     <tbody>
-                         <% 
-                    AprendizVO aprenVO = new AprendizVO();
-                    AprendizDAO aprenDAO= new AprendizDAO(aprenVO);
+                                        <% 
+                    FuncionarioVO funVO = new FuncionarioVO();
+                    FuncionarioDAO funDAO= new FuncionarioDAO(funVO);
                     EvaluaVO evaVO = new EvaluaVO();
                     EvaluaDAO evaDAO = new EvaluaDAO(evaVO);
-                    ArrayList<AprendizVO>ListaAprendiz=aprenDAO.listar();
-                    for (int i = 0; i < ListaAprendiz.size(); i++) {
+                    ArrayList<FuncionarioVO>ListaFuncionario=funDAO.listar();
+                    for (int i = 0; i < ListaFuncionario.size(); i++) {
                         
                         
-                    
-                      
-                    aprenVO= ListaAprendiz.get(i);
-                     if(aprenDAO.consultarAprendiz_Evalua(aprenVO.getIdAprendiz()) != null){
-                         request.setAttribute("mensajeExito", "Ya ah evaluado");
+                            funVO= ListaFuncionario.get(i);
+                        if(funDAO.consultarFuncionario_Evalua(funVO.getIdFuncionario())!=null){
+                         request.setAttribute("mensajeExito", "Ha sido evaluado");
                     
                                 
                        }else{
-                            request.setAttribute("mensajeError", "No ha evaluado");
-                        }       
+                            request.setAttribute("mensajeError", "No ha sido evaluado");
+                        }      
             
                     %>
                     
                     <tr>
-                        <td class="text-center" ><%=aprenVO.getNombre()%></td>
-                        <td class="text-center" ><%=aprenVO.getApellido() %></td>
-                        <td class="text-center" ><%=aprenVO.getCorreo() %></td>
-                         <td class="text-center" ><%=aprenVO.getTipoDocumento() %></td>
-                        <td class="text-center" ><%=aprenVO.getNumIdentidad() %></td>
-                        <td class="text-center" ><%if (request.getAttribute("mensajeError") == null) {%>
-                                                <div style="color:aqua;">${mensajeExito}</div>
-                                                <% } else if (request.getAttribute("mensajeExito") == null) {%>
+                        <td class="text-center" ><%=funVO.getNombre() %></td>
+                        <td class="text-center" ><%=funVO.getApellido() %></td>
+                        <td class="text-center" ><%=funVO.getCorreo() %></td>
+                        <td class="text-center" ><%=funVO.getNumIdentidad() %></td>
+                        <td class="text-center" ><% if(true) {%>
+                            
+                                                <form method="POST" action="GenerarPDFParametrizado.jsp" target="_blank">
+                                                <input type="hidden"  value="<%=funVO.getNombre()%>" name="nombre">
+                                                <input type="submit" value="Generar reporte">
+                                                
+                                                <input type="hidden" value="ReporteParametrizado.jasper" name="nombreReporte">
+                                                </form>
+                                                
+                                                <% } else if (request.getAttribute("mensajeError") == null) {%>
                                                 <div style="color:red;">${mensajeError}</div>
-                                                <%}%>
-                                                 </td>
+                                                <%}%></td>
                         <td class="text-center" >
-                            <form method="POST" action="Aprendiz">
+                            <form method="POST" action="Funcionario">
                             <button class="btn btn-warning">Actualizar</button>
                             <input type="hidden" value="4" name="opcion">
-                            <input type="hidden" value="<%=aprenVO.getIdAprendiz() %>" name="textId">
+                            <input type="hidden" value="<%=funVO.getIdFuncionario() %>" name="textId">
                             </form>
                         </td>
                     </tr>
                     <%}%>
                     </tbody>
                   </table>
-                   
+                    
                 </div>
-                     <a  class="btn btn-success" class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#registrarAprendiz">Registrar</a>
+                    <a class="btn btn-success" class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#registrarFuncionario" href="Crear_Funcionario.jsp">Registrar</a>
               </div>
             </div>
           </div>
           <!--Row-->
-
+          
           <!-- Documentation Link -->
           <div class="row">
             <div class="col-lg-12">
-              
+          
             </div>
           </div>
 
@@ -207,23 +197,23 @@
                   <p>Estas seguro que quieres cerrar sesiòn?</p>
                 </div>
                 <div class="modal-footer">
-                  <button Ftype="button" class="btn btn-outline-primary" data-dismiss="modal">Cancelar</button>
+                  <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancelar</button>
                   <a href="Sesiones" class="btn btn-primary">Salir</a>
                 </div>
               </div>
             </div>
           </div>
-            <!-- Modal Registrar_Aprendiz -->
-          <div class="modal fade" id="registrarAprendiz" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelLogout"
+          <!-- Modal Registrar_Funcionario -->
+          <div class="modal fade" id="registrarFuncionario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelLogout"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="card mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Registrar Aprendiz</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Registrar Funcionario</h6>
                 </div>
                 <div class="card-body">
-                       <form  class="modal-body" method="POST" action="Aprendiz">
+                       <form  class="modal-body" method="POST" action="Funcionario">
                         <div class="form-group">   
                         <label for="nombre" >Nombre</label>
                         <input class="form-control" type="text" name="textNombre"><br>
@@ -237,21 +227,27 @@
                         <input class="form-control" type="text" name="textCorreo"><br>
                         </div>
                         <div class="form-group">
-                        <label for="exampleFormControlSelect1">Tipo de Documento</label>
-                        <select name="textTipDocumento" class="form-control" id="exampleFormControlSelect1">
-                          <option value="Tarjeta_de_Identidad">Tarjeta de Identidad</option>
-                          <option value="Cedula_de_Ciudadania">Cedula de Ciudadania</option>
-                          
-                        </select>
-                        </div>   
-                        <div class="form-group">
                         <label for="numIdentidad">Numero de Idetidad</label>
                         <input class="form-control" type="text" name="textIdentidad"><br>
-                        </div>
+                        </div >
+                         <div class="form-group" >  
+                           <label for="numIdentidad">Coordinación</label>  
+                        <select class="form-select" name="textCoFK">
+                            <option>Seleccione...</option>
+                            <%
+                                CoordinacionDAO cooDAO = new CoordinacionDAO();
+                                for (CoordinacionVO cooVO: cooDAO.listar() ) {
+                            %>
+                            <option value="<%=cooVO.getIdCoordinacion() %>"> <%=cooVO.getNombreCoordinacion() %></option>
+                            <%
+                                }
+                            %>
+                        </select>
+                        </div> 
                         <button class="btn btn-warning" >Registrar</button>
                         <input class="form-control" type="hidden" value="1" name="opcion">
 
-                        <a class="btn btn-success" href="Consultar_Aprendiz.jsp">Volver</a>
+                        <a class="btn btn-success" href="Consultar_Funcionario.jsp">Volver</a>
 
                         </form>
                 </div>
@@ -259,6 +255,7 @@
               </div>
             </div>
           </div>
+
 
         </div>
         <!---Container Fluid-->

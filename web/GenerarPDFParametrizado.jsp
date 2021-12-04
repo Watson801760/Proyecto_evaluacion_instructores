@@ -25,10 +25,11 @@
             
             String nombre_fun = request.getParameter("nombre");
                 
-            parametros.put("nombre_fun", nombre_fun );
+            parametros.put("nombre_fun",nombre_fun);
             
             Conexion claseConexion = new Conexion();
             Connection conexion = claseConexion.obtenerConexion();
+            
             byte[] reporteBytes =JasperRunManager.runReportToPdf(reporte.getPath(), parametros, conexion);
             response.setContentType("application/pdf");
             response.setContentLength(reporteBytes.length);
